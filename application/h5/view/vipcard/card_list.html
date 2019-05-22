@@ -1,0 +1,96 @@
+{{include file='public/header'}}
+<style type="text/css">
+  body,
+  .mui-content {
+    background: #fff;
+  }
+  .huiyuan_header{text-align: center;}
+  .huiyuan_header a{color: #333;line-height: 40px;display: block;}
+  .huiyuan_header .flex-item.mui-active a{color: #f29b76;border-bottom: 1px solid #f29b76;}
+
+  .gallery-top>div{display: none;}
+  .gallery-top>div.mui-active{display: block;}
+  .gallery-top div>img{width: 100%;}
+  .gallery-top div .flex{margin-top: 10px;}
+  .gallery-top div .flex img{width: 25px;height: 22px;margin-right: 10px;}
+  .gallery-top div .mui-btns{text-align: center;background: #f29b76;border-radius: 20px;line-height: 40px;}
+</style>
+<body>
+<header class="mui-bar mui-bar-nav  index-headers">
+
+    <h1 class="mui-title color">会员</h1>
+
+</header>
+<div class="mui-content mui-scroll-wrapper mui-bottom" id="pullrefresh">
+    <div class="mui-scroll">
+		<div class="huiyuan_header">
+              <div class="flex">
+                <div class="flex-item mui-active">
+                  <a class="" href="javascript:;">直通车</a>
+                </div>
+                <div class="flex-item">
+                  <a href="javascript:;">目的地</a>
+                </div>
+              </div>
+      	</div>
+      	<div class=" gallery-top">
+				{{volist name='cards' id='co'}}
+					<div class=" assd ">
+						<img src="{{$co->w_image_path}}" alt="">
+						<div class="flex">
+							<img src="__STATIC__/h5/images/huiyuan/huangguan.png" alt="">
+							<div class="card_jieshao">
+								<h5>卡种介绍</h5>
+								<div>{{$co->introduce}}</div>
+							</div>
+						</div>
+						<div class="flex">
+							<img src="__STATIC__/h5/images/huiyuan/xunzhang.png" alt="">
+							<div class="card_jieshao">
+								<h5>卡种攻略</h5>
+								<div>{{$co->strategy}}</div>
+							</div>
+						</div>
+						<a href="{{:url('vipcard/cardbuy',['id'=>$co->card_id])}}" class="mui-btns">点击进入</a>
+					</div>
+					
+          		{{/volist}}
+			</div>	  
+    </div>
+</div>
+{{include file='public/nav'}}
+{{include file='public/footer'}}
+<script type="text/javascript" charset="utf-8">
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            down: {
+                style: 'circle',
+                callback: pulldownRefresh
+            }
+        }
+    });
+
+    function pulldownRefresh() {
+        setTimeout(function() {
+            window.location.reload()
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        }, 1500);
+    }
+	$('.huiyuan_header .flex-item').each(function(i,btn){
+      btn.addEventListener('tap',function(index){
+        $(this).addClass('mui-active').siblings().removeClass('mui-active')
+        $($('.assd')[i]).addClass('mui-active').siblings().removeClass('mui-active')
+      })
+
+    })
+    a()
+  function a(){
+  
+    $('.gallery-top .assd:first-child').addClass('mui-active')
+  }
+			
+</script>
+
+</body>
+</html>
