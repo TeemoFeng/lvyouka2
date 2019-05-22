@@ -381,7 +381,7 @@ class User extends Base
         $check = CodePath::getInfo ([
             'id'=>$this->userId
         ],'*');
-        $qrData = request ()->domain ().'index/login/register?code='.$this->userInfo->code;
+        $qrData = request ()->domain ().'/h5/user/register?usercode='.$this->userInfo->code;
         if (!$check || empty($check->code_path)){
             $savePath = ROOT_PATH . 'public/qrcode/';
             $webPath = '/qrcode/';
@@ -409,6 +409,20 @@ class User extends Base
             'code_path'=>request ()->domain ().$path
         ]);
         return $this->fetch ();
+    }
+
+    //邀请用户注册
+    public function register()
+    {
+        //获取用户携带来的邀请码
+        $code = request()->param('usercode',"");
+        if(empty($code)){
+            return;
+        }else{
+            //
+        }
+
+
     }
 
 
