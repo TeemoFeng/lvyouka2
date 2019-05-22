@@ -250,6 +250,20 @@ class Trip extends Base
         }
     }
 
+    //预约选择支付方式
+    public function paySelect($id){
+        $data = Order::where(['id' => $id])->find()->toArray();
+        if($data['pay_method'] == 1){
+            $ali = new Alipay();
+            $ali->alipayTrip($data);
+            return $this->fetch('trip_info');
+        }elseif ($data['pay_method'] ==2 ){
+            //更新支付方式为微信
+            $this->redirect('index.php',['data'=>1]);
+        }
+
+    }
+
     //预约押金支付成功后回调接口
     public function journeyOrderCallBack($id){
         Db::startTrans ();
