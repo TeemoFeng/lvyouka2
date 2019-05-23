@@ -20,20 +20,25 @@ class Base extends Controller
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
-        session('user_id',1);
-        if(session('user_id')){
-            $this->userId = session('user_id');
-            $this->userInfo = Member::getInfo ([
-                'id'=>$this->userId
-            ]);
-        }else{ 
+        session('user_id', 1);
+
+        if(!session('user_id')){
+
             if(self::isWechatAccess())
             {
                 self::saveWechatUser();
+                $this->userInfo = Member::getInfo ([
+                    'id'=>$this->userId
+                ]);
             } else {
                 header('Location:'.$this->url);
             };
         }
+
+        $this->userId = session('user_id');
+        $this->userInfo = Member::getInfo ([
+            'id'=>$this->userId
+        ]);
 
 
     }
