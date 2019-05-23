@@ -23,6 +23,7 @@ class Base extends Controller
         session('user_id', 1);
 
         if(!session('user_id')){
+
             if(self::isWechatAccess())
             {
                 self::saveWechatUser();
