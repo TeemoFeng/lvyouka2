@@ -2153,3 +2153,70 @@
 [ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 30 LIMIT 1 [ RunTime:0.101773s ]
 [ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 29 LIMIT 1 [ RunTime:0.102345s ]
 [ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 26 LIMIT 1 [ RunTime:0.101828s ]
+---------------------------------------------------------------
+[ 2019-05-23T22:55:25+08:00 ] 127.0.0.1 GET lyk.com/api/Category/categoryTypeController?cid=6&displayType=2
+[运行时间：2.207127s] [吞吐率：0.45req/s] [内存消耗：2,401.12kb] [文件加载：68]
+[ info ] [ LANG ] D:\lyknew\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'Category',
+    2 => 'categoryTypeController',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=qj4ioq6fu5u3h3kd5lo3l6cqd4',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'lyk.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '6',
+  'displayType' => '2',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\api\controller\Category->categoryTypeController[ D:\lyknew\application\api\controller\Category.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.100006s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `id`,`title` FROM `wyc_category` WHERE  `cid` = 1  AND `status` = 1  AND `display_type` = 2 ORDER BY `sort` DESC [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `id`,`sc_id` FROM `wyc_journey` WHERE  `year` = 2019  AND `status` = 1  AND `cid` = 6 ORDER BY `id` DESC [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 38 LIMIT 1 [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 76 LIMIT 1 [ RunTime:0.065003s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 75 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 74 LIMIT 1 [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 73 LIMIT 1 [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 72 LIMIT 1 [ RunTime:0.064003s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 71 LIMIT 1 [ RunTime:0.068003s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 68 LIMIT 1 [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 67 LIMIT 1 [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 66 LIMIT 1 [ RunTime:0.079005s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 40 LIMIT 1 [ RunTime:0.067003s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 39 LIMIT 1 [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 37 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 36 LIMIT 1 [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 25 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 35 LIMIT 1 [ RunTime:0.066003s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 33 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 31 LIMIT 1 [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 30 LIMIT 1 [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 29 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 26 LIMIT 1 [ RunTime:0.105006s ]

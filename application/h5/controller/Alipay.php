@@ -19,10 +19,15 @@ use app\h5\model\MemberInfo;
 use app\h5\model\MemberLevel;
 use think\Exception;
 use app\h5\model\Journey;
-
+use think\Request;
 header("Content-type:text/html;charset=utf-8");
 class Alipay extends Controller
 {
+    public function __construct(Request $request = null){
+        parent::__construct($request);
+        vendor('alipaywx.wappay.service.AlipayTradeService');
+        vendor('alipaywx.wappay.buildermodel.AlipayTradeWapPayContentBuilder');
+    }
     //支付宝购买旅游卡支付
     public function alipay($data = null){
         $config = Config::get('alipay');
@@ -60,8 +65,6 @@ class Alipay extends Controller
     public function alipay_old($data = null, $status = null)
     {
         $config = Config::get('alipay');
-        vendor('alipaywx.wappay.service.AlipayTradeService');
-        vendor('alipaywx.wappay.buildermodel.AlipayTradeWapPayContentBuilder');
         //商户订单号，商户网站订单系统中唯一订单号，必填
         $out_trade_no = $data['order_number'];
         //订单名称，必填
@@ -348,7 +351,7 @@ class Alipay extends Controller
                     ->count('id');
                 $kfNum = $count%4+1;
             }
-            $order::infoEdit ($order,'state,sj_card_num,fukuan_time,kf_num',[
+            $order::infoEdit ($order,'state,sj_card_num,fukuan_time,kf_num,trade_no,order_info',[
                 'state'=>$state,
                 'sj_card_num'=>$sj_card_num,
                 'fukuan_time'=>time (),
