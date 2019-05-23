@@ -226,7 +226,7 @@ class Trip extends Base
                 }
                 $data['uid'] = $this->userId;
                 $data['cash'] = $data['people_count'] * $jouInfo->cash;
-                $data['order_number'] = date ('Ymd').substr (microtime (true),0,10);
+                $data['order_number'] = 'YY'.date ('Ymd').substr (microtime (true),0,10);
                 $data['card_id'] = $jouInfo->card_id;
                 $result = Order::infoAdd ($data,['order_number','card_id','site','create_time','people_count','j_id','cash','uid','xz_card_num']);
                 foreach ($touristInfo as $k=>$v){
@@ -236,16 +236,19 @@ class Trip extends Base
                 $OrderPeopleInfo = new OrderPeopleInfo();
                 $OrderPeopleInfo->allowField (['oid','j_id','name','name_id'])->isUpdate (false)->saveAll($touristInfo);
                 Db::commit ();
+                //暂时使用支付宝支付
+                $ali = new Alipay();
+                $url = $ali->alipayTrip($data);
 
-                $this->journeyOrderCallBack($result->id);
             }catch (Exception $e){
                 Db::rollback ();
                 return $this->error ($e->getMessage ());
             }
             return $this->success('预约成功','',[
                 'order_id'=>$result->id,
-                'cash'=>$data['cash'],
-                'code' => 1,
+                'cash'  =>$data['cash'],
+                'code'  => 1,
+                'url'   => $url,
             ]);
         }
     }
@@ -266,7 +269,7 @@ class Trip extends Base
 
     //预约押金支付成功后回调接口
     public function journeyOrderCallBack($id){
-        Db::startTrans ();
+        Db::startTrans();
         try{
             #获取订单信息
             $order = Order::getInfo ([
