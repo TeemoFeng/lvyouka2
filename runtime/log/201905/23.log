@@ -1656,3 +1656,594 @@
 [ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.085005s ]
 [ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 11 LIMIT 1 [ RunTime:0.119007s ]
 [ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 10 LIMIT 1 [ RunTime:0.103005s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:12:23+08:00 ] 127.0.0.1 GET www.yyy.com/api/Index/index
+[运行时间：0.933054s] [吞吐率：1.07req/s] [内存消耗：2,623.32kb] [文件加载：69]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'Index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=h49bs63hue5pfdijbr6ikld6ba',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\api\controller\Index->index[ D:\yyy\application\api\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.106006s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_banner` [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT `image_path` FROM `wyc_banner` WHERE  `status` = 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_special` [ RunTime:0.084004s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wyc_special` WHERE  `status` = 1  AND `s_time` < 1558577543  AND `e_time` > 1558577543 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `sc_id`,`id`,`s_time`,`e_time`,`heat`,`arrange` FROM `wyc_special` WHERE  `status` = 1  AND `s_time` < 1558577543  AND `e_time` > 1558577543 ORDER BY `sort` DESC LIMIT 0,4 [ RunTime:0.078005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.076004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 11 LIMIT 1 [ RunTime:0.125008s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 10 LIMIT 1 [ RunTime:0.131007s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:13:31+08:00 ] 127.0.0.1 GET www.yyy.com/
+[运行时间：1.001057s] [吞吐率：1.00req/s] [内存消耗：2,716.28kb] [文件加载：72]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Index->index[ D:\yyy\application\h5\controller\Index.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\index\index.html [ array (
+  0 => 'banner',
+  1 => 'SpecialList',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.101006s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.085005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_banner` [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path` FROM `wyc_banner` WHERE  `status` = 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_special` [ RunTime:0.077004s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wyc_special` WHERE  `status` = 1  AND `s_time` < 1558577610  AND `e_time` > 1558577610 LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `sc_id`,`id`,`s_time`,`e_time`,`heat`,`arrange` FROM `wyc_special` WHERE  `status` = 1  AND `s_time` < 1558577610  AND `e_time` > 1558577610 ORDER BY `sort` DESC LIMIT 0,4 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 11 LIMIT 1 [ RunTime:0.099006s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 10 LIMIT 1 [ RunTime:0.108006s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:13:39+08:00 ] 127.0.0.1 GET www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1.html
+[运行时间：2.818161s] [吞吐率：0.35req/s] [内存消耗：2,816.95kb] [文件加载：73]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'category',
+    2 => 'categorytypecontroller',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '2',
+  'displayType' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Category->categoryTypeController[ D:\yyy\application\h5\controller\Category.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\category\through_list.html [ array (
+  0 => 'journeys',
+  1 => 'thisMonth',
+  2 => 'month',
+  3 => 'cid',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.132008s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.087005s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.079005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.098005s ]
+[ sql ] [ SQL ] SELECT `id` FROM `wyc_category` WHERE  `status` = 1  AND `id` = 2  AND `display_type` = 1 LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.079004s ]
+[ sql ] [ SQL ] SELECT `week`,`year`,`month` FROM `wyc_journey` WHERE  `month` = 5  AND `year` = 2019  AND `status` = 1  AND `cid` = 2 GROUP BY `week` ORDER BY `week` ASC [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 5  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 1 ORDER BY `week` DESC [ RunTime:0.079005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 8 LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 43 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 44 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 50 LIMIT 1 [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 51 LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 52 LIMIT 1 [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 53 LIMIT 1 [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 54 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 58 LIMIT 1 [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 61 LIMIT 1 [ RunTime:0.075005s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 61 LIMIT 1 [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 63 LIMIT 1 [ RunTime:0.077004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 82 LIMIT 1 [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 94 LIMIT 1 [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 97 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 99 LIMIT 1 [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 100 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 102 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 104 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 5  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 2 ORDER BY `week` DESC [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 8 LIMIT 1 [ RunTime:0.088005s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 5  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 3 ORDER BY `week` DESC [ RunTime:0.076004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.091006s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 8 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 89 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 96 LIMIT 1 [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:13:43+08:00 ] 127.0.0.1 GET www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/1.html
+[运行时间：1.933111s] [吞吐率：0.52req/s] [内存消耗：2,604.64kb] [文件加载：71]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'category',
+    2 => 'categorytypecontroller',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '2',
+  'displayType' => '1',
+  'thisMonth' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Category->categoryTypeController[ D:\yyy\application\h5\controller\Category.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\category\through_list.html [ array (
+  0 => 'journeys',
+  1 => 'thisMonth',
+  2 => 'month',
+  3 => 'cid',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.101006s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.067003s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.067003s ]
+[ sql ] [ SQL ] SELECT `id` FROM `wyc_category` WHERE  `status` = 1  AND `id` = 2  AND `display_type` = 1 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.077005s ]
+[ sql ] [ SQL ] SELECT `week`,`year`,`month` FROM `wyc_journey` WHERE  `month` = 1  AND `year` = 2019  AND `status` = 1  AND `cid` = 2 GROUP BY `week` ORDER BY `week` ASC [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 1  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 1 ORDER BY `week` DESC [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 16 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 17 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 18 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 19 LIMIT 1 [ RunTime:0.079005s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 27 LIMIT 1 [ RunTime:0.081004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 45 LIMIT 1 [ RunTime:0.134008s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 46 LIMIT 1 [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 47 LIMIT 1 [ RunTime:0.150008s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 55 LIMIT 1 [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 65 LIMIT 1 [ RunTime:0.098006s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 78 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 90 LIMIT 1 [ RunTime:0.140008s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 93 LIMIT 1 [ RunTime:0.070004s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:13:47+08:00 ] 127.0.0.1 GET www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/2.html
+[运行时间：2.567147s] [吞吐率：0.39req/s] [内存消耗：2,585.92kb] [文件加载：71]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'category',
+    2 => 'categorytypecontroller',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/1.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '2',
+  'displayType' => '1',
+  'thisMonth' => '2',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Category->categoryTypeController[ D:\yyy\application\h5\controller\Category.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\category\through_list.html [ array (
+  0 => 'journeys',
+  1 => 'thisMonth',
+  2 => 'month',
+  3 => 'cid',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.190011s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.167010s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.169009s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.164009s ]
+[ sql ] [ SQL ] SELECT `id` FROM `wyc_category` WHERE  `status` = 1  AND `id` = 2  AND `display_type` = 1 LIMIT 1 [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.368021s ]
+[ sql ] [ SQL ] SELECT `week`,`year`,`month` FROM `wyc_journey` WHERE  `month` = 2  AND `year` = 2019  AND `status` = 1  AND `cid` = 2 GROUP BY `week` ORDER BY `week` ASC [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 2  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 1 ORDER BY `week` DESC [ RunTime:0.135007s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 8 LIMIT 1 [ RunTime:0.202011s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 85 LIMIT 1 [ RunTime:0.090006s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 2  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 2 ORDER BY `week` DESC [ RunTime:0.137007s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 27 LIMIT 1 [ RunTime:0.135008s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 48 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 79 LIMIT 1 [ RunTime:0.137008s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 80 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 90 LIMIT 1 [ RunTime:0.133008s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:13:49+08:00 ] 127.0.0.1 GET www.yyy.com/h5/index/index.html
+[运行时间：1.056061s] [吞吐率：0.95req/s] [内存消耗：2,719.34kb] [文件加载：72]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/2.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Index->index[ D:\yyy\application\h5\controller\Index.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\index\index.html [ array (
+  0 => 'banner',
+  1 => 'SpecialList',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.112007s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_banner` [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `image_path` FROM `wyc_banner` WHERE  `status` = 1 [ RunTime:0.073005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_special` [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wyc_special` WHERE  `status` = 1  AND `s_time` < 1558577629  AND `e_time` > 1558577629 LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `sc_id`,`id`,`s_time`,`e_time`,`heat`,`arrange` FROM `wyc_special` WHERE  `status` = 1  AND `s_time` < 1558577629  AND `e_time` > 1558577629 ORDER BY `sort` DESC LIMIT 0,4 [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.071005s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 11 LIMIT 1 [ RunTime:0.131007s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_scenic` WHERE  `id` = 10 LIMIT 1 [ RunTime:0.140008s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:13:51+08:00 ] 127.0.0.1 GET www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/1.html
+[运行时间：1.742099s] [吞吐率：0.57req/s] [内存消耗：2,604.64kb] [文件加载：71]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'category',
+    2 => 'categorytypecontroller',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '2',
+  'displayType' => '1',
+  'thisMonth' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Category->categoryTypeController[ D:\yyy\application\h5\controller\Category.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\category\through_list.html [ array (
+  0 => 'journeys',
+  1 => 'thisMonth',
+  2 => 'month',
+  3 => 'cid',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.109007s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `id` FROM `wyc_category` WHERE  `status` = 1  AND `id` = 2  AND `display_type` = 1 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `week`,`year`,`month` FROM `wyc_journey` WHERE  `month` = 1  AND `year` = 2019  AND `status` = 1  AND `cid` = 2 GROUP BY `week` ORDER BY `week` ASC [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 1  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 1 ORDER BY `week` DESC [ RunTime:0.071005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 16 LIMIT 1 [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 17 LIMIT 1 [ RunTime:0.072005s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 18 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 19 LIMIT 1 [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 27 LIMIT 1 [ RunTime:0.076004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 45 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 46 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 47 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 55 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 65 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 78 LIMIT 1 [ RunTime:0.080004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 90 LIMIT 1 [ RunTime:0.074005s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 93 LIMIT 1 [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:14:12+08:00 ] 127.0.0.1 GET www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/8.html
+[运行时间：1.366078s] [吞吐率：0.73req/s] [内存消耗：2,579.44kb] [文件加载：71]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'category',
+    2 => 'categorytypecontroller',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/1.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '2',
+  'displayType' => '1',
+  'thisMonth' => '8',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Category->categoryTypeController[ D:\yyy\application\h5\controller\Category.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\category\through_list.html [ array (
+  0 => 'journeys',
+  1 => 'thisMonth',
+  2 => 'month',
+  3 => 'cid',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.109006s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `id` FROM `wyc_category` WHERE  `status` = 1  AND `id` = 2  AND `display_type` = 1 LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `week`,`year`,`month` FROM `wyc_journey` WHERE  `month` = 8  AND `year` = 2019  AND `status` = 1  AND `cid` = 2 GROUP BY `week` ORDER BY `week` ASC [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 8  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 1 ORDER BY `week` DESC [ RunTime:0.075004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.068003s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 109 LIMIT 1 [ RunTime:0.069003s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 8  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 2 ORDER BY `week` DESC [ RunTime:0.110006s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 105 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 8  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 3 ORDER BY `week` DESC [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 106 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 107 LIMIT 1 [ RunTime:0.068003s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 8  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 5 ORDER BY `week` DESC [ RunTime:0.069003s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 62 LIMIT 1 [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:14:15+08:00 ] 127.0.0.1 GET www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/12.html
+[运行时间：0.814046s] [吞吐率：1.23req/s] [内存消耗：2,550.93kb] [文件加载：71]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'category',
+    2 => 'categorytypecontroller',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/8.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '2',
+  'displayType' => '1',
+  'thisMonth' => '12',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Category->categoryTypeController[ D:\yyy\application\h5\controller\Category.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\category\through_list.html [ array (
+  0 => 'journeys',
+  1 => 'thisMonth',
+  2 => 'month',
+  3 => 'cid',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.104006s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT `id` FROM `wyc_category` WHERE  `status` = 1  AND `id` = 2  AND `display_type` = 1 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `week`,`year`,`month` FROM `wyc_journey` WHERE  `month` = 12  AND `year` = 2019  AND `status` = 1  AND `cid` = 2 GROUP BY `week` ORDER BY `week` ASC [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 12  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 1 ORDER BY `week` DESC [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 23 LIMIT 1 [ RunTime:0.067004s ]
+---------------------------------------------------------------
+[ 2019-05-23T10:14:18+08:00 ] 127.0.0.1 GET www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/11.html
+[运行时间：1.167067s] [吞吐率：0.86req/s] [内存消耗：2,571.65kb] [文件加载：71]
+[ info ] [ LANG ] D:\yyy\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'h5',
+    1 => 'category',
+    2 => 'categorytypecontroller',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=le555b1994oe5ji1bj1ft6i8pc',
+  'accept-language' => 'zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.yyy.com/h5/category/categorytypecontroller/cid/2/displayType/1/thisMonth/12.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.1021.400 QQBrowser/9.0.2524.400',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'connection' => 'close',
+  'host' => 'www.yyy.com',
+)
+[ info ] [ PARAM ] array (
+  'cid' => '2',
+  'displayType' => '1',
+  'thisMonth' => '11',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\h5\controller\Category->categoryTypeController[ D:\yyy\application\h5\controller\Category.php ]
+[ info ] [ VIEW ] D:\yyy\public/../application/h5\view\category\through_list.html [ array (
+  0 => 'journeys',
+  1 => 'thisMonth',
+  2 => 'month',
+  3 => 'cid',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.107006s ] mysql:host=114.55.167.187;dbname=lv_wyc168_com;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_member` [ RunTime:0.071004s ]
+[ sql ] [ SQL ] SELECT * FROM `wyc_member` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_category` [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `id` FROM `wyc_category` WHERE  `status` = 1  AND `id` = 2  AND `display_type` = 1 LIMIT 1 [ RunTime:0.065004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_journey` [ RunTime:0.070004s ]
+[ sql ] [ SQL ] SELECT `week`,`year`,`month` FROM `wyc_journey` WHERE  `month` = 11  AND `year` = 2019  AND `status` = 1  AND `cid` = 2 GROUP BY `week` ORDER BY `week` ASC [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 11  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 1 ORDER BY `week` DESC [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wyc_scenic` [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 21 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 69 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 77 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 87 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `id`,`s_time`,`e_time`,`vehicle`,`sc_id` FROM `wyc_journey` WHERE  `month` = 11  AND `year` = 2019  AND `status` = 1  AND `cid` = 2  AND `week` = 2 ORDER BY `week` DESC [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `image_path`,`title`,`intro` FROM `wyc_scenic` WHERE  `id` = 86 LIMIT 1 [ RunTime:0.068004s ]
