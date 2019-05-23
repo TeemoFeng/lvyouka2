@@ -100,11 +100,14 @@ class Category extends Base
                 }
             }
 
+            // $journeys = collection($journeys)->toArray();
             $dataR = array();
             $dataR['journeys'] = $journeys;
             $dataR['thisMonth'] = $thisMonth;
-            $dataR['month'] = $month;
+            $dataR['month'] = $this->month;
             $dataR['cid'] = $cid;
+            // dump($dataR);
+            // echo json_encode($journeys);
             return json($dataR);
         }catch (Exception $e){
            // echo $e->getMessage ();
