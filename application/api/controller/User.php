@@ -328,7 +328,7 @@ class User extends Base
                 return $this->error ($e->getMessage ());
             }
             if($data['from'] == 1){
-                echo json_encode(array("msg"=>"信息绑定成功","else":"vipcard/cardActive"));die;
+                echo json_encode(array("msg"=>"信息绑定成功","else"=>"vipcard/cardActive"));die;
             }
             echo json_encode(array("msg"=>"信息绑定成功"));die;
 
