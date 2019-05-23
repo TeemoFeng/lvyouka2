@@ -123,4 +123,14 @@ class Base extends Controller
 
     }
 
+    //生成邀请码
+    function createCode( $length = 8 )
+    {
+
+        $str = substr(md5(time()), 0, $length);
+
+        return $str;
+
+    }
+
 }

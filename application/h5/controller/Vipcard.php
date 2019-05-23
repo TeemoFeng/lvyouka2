@@ -228,8 +228,9 @@ class Vipcard extends Base
                 }
 
                 //更改用户为有效会员
+                $code = $this->createCode(8); //生成邀请码
                 if($this->userInfo->valid == 0){
-                    Member::where(['id' => $this->userId])->update(['valid' => 1]);
+                    Member::where(['id' => $this->userId])->update(['valid' => 1, 'code' => $code]);
                 }
                 //更改卡片状态
                 CardList::where(['card_number' => $data['card_number']])->update(['state' => 0]);
@@ -244,6 +245,8 @@ class Vipcard extends Base
         }
 
     }
+
+
 
     public function cardActive()
     {
@@ -337,8 +340,9 @@ class Vipcard extends Base
                     'play_count','play_time','card_id','card_type','uid','create_time','end_time','activate','card_number','password'
                 ]);
                //更改用户为有效会员
+                $code = $this->createCode(8); //生成邀请码
                 if($this->userInfo->valid == 0){
-                    Member::where(['id' => $this->userId])->update(['valid' => 1]);
+                    Member::where(['id' => $this->userId])->update(['valid' => 1,'code' => $code]);
                 }
                 //更改卡片状态
                 CardList::where(['card_number' => $data['card_number']])->update(['state' => 0]);

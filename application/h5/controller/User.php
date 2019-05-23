@@ -384,7 +384,12 @@ class User extends Base
         $user_info = Member::getInfo ([
             'id'=>$this->userId
         ]);
-        $qrData = request ()->domain ().'/h5/user/register?usercode='.$user_info->code;
+        $code  = $user_info->code;
+        if(empty($user_info->codes)){
+            $code = $this->createCode(8); //生成邀请码
+            Member::where(['id' => $this->userId])->update(['code' => $code]);
+        }
+        $qrData = request ()->domain ().'/h5/user/register?usercode='.$code;
         if (!$check || empty($check->code_path)){
             $savePath = ROOT_PATH . 'public/qrcode/';
             $webPath = '/qrcode/';
