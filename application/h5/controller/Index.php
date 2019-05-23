@@ -37,6 +37,8 @@ class Index extends Base
             'banner'=>$banner,
             'SpecialList' => $SpecialList,
         ]);
+
+
     }
 
     public function ajaxIndex(){
