@@ -18,6 +18,7 @@ class Base extends Controller
     {
         parent::__construct($request);
         session('user_id',1);
+        $this->userId = session('user_id');
     }
 
 }
