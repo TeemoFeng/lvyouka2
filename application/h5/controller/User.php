@@ -381,7 +381,10 @@ class User extends Base
         $check = CodePath::getInfo ([
             'id'=>$this->userId
         ],'*');
-        $qrData = request ()->domain ().'/h5/user/register?usercode='.$this->userInfo->code;
+        $user_info = Member::getInfo ([
+            'id'=>$this->userId
+        ]);
+        $qrData = request ()->domain ().'/h5/user/register?usercode='.$user_info->code;
         if (!$check || empty($check->code_path)){
             $savePath = ROOT_PATH . 'public/qrcode/';
             $webPath = '/qrcode/';
@@ -420,6 +423,7 @@ class User extends Base
             return;
         }else{
             //
+
         }
 
 

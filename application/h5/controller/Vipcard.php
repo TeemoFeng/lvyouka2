@@ -217,15 +217,22 @@ class Vipcard extends Base
                 //激活此卡片
                 $now = date('Y-m-d H:i:s',time());
                 $e_time = strtotime("+1years",strtotime($now));
-                $data = [
+                $data2 = [
                     'activate' => 1,
                     'create_time' => time(),
                     'end_time'  => $e_time,
                 ];
-                $res = MemberCard::where(['id' => $info['id']])->update($data);
+                $res = MemberCard::where(['id' => $info['id']])->update($data2);
                 if($res === false){
                     \exception('激活失败，请重新操作');
                 }
+
+                //更改用户为有效会员
+                if($this->userInfo->valid == 0){
+                    Member::where(['id' => $this->userId])->update(['valid' => 1]);
+                }
+                //更改卡片状态
+                CardList::where(['card_number' => $data['card_number']])->update(['state' => 0]);
 
                 return ['code' => 1, '激活成功'];
 
