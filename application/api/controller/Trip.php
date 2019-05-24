@@ -56,6 +56,7 @@ class Trip extends Base
         $dataR['info'] = $info;
         $dataR['banner'] = $banner;
         $dataR['journey'] = $journey;
+        $dataR['w_vid'] = $journey->w_vid;
 
 
         return json($dataR);
