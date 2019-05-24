@@ -372,7 +372,7 @@ class User extends Base
         }elseif (request ()->isPost ()){
             try{
                 $data = request ()->post();
-                $this->validateCheck ('UserFeedback',$data);
+                // $this->validateCheck ('UserFeedback',$data);
                 MemberFeedback::infoAdd ([
                     'uid'=>$this->userId,
                     'content'=>$data['content']
