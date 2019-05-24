@@ -115,7 +115,7 @@ class User extends Base
 
 
         $dataR = array();
-        $dataR['headerList'] = $headerList;
+        $dataR['headerList'] = $header;
         $dataR['state'] = $state;
 
         return json($dataR);
