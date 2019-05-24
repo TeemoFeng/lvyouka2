@@ -240,7 +240,7 @@ class User extends Base
 
         $dataR = array();
         $dataR['list'] = $list;
-        $dataR['userInfo'] = $userInfo;
+        $dataR['userInfo'] = $this->userInfo;
 
         return json($dataR);
     }

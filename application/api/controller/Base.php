@@ -5,6 +5,8 @@
  */
 namespace app\api\controller;
 
+
+use app\h5\model\Member;
 use think\Controller;
 use think\Db;
 use think\Exception;
@@ -19,6 +21,9 @@ class Base extends Controller
         parent::__construct($request);
         session('user_id',1);
         $this->userId = session('user_id');
+        $this->userInfo = Member::getInfo ([
+            'id'=>$this->userId
+        ]);
     }
 
 }
