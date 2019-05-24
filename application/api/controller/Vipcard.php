@@ -6,7 +6,7 @@
  * Time: 21:40
  */
 
-namespace app\h5\controller;
+namespace app\api\controller;
 
 
 use app\h5\model\Address;
@@ -31,30 +31,29 @@ class Vipcard extends Base
         $this->assign([
             'cards'=>$cards
         ]);
-        return $this->fetch();
+
+        $res = [
+            'cards' => $cards,
+        ];
+        return json($res);
     }
 
     //买卡
-    public function cardBuy($id = 0){
-        try{
-            if (is_numeric($id) && $id > 0){
-                $cardInfo = \app\h5\model\VipCard::getInfo([
-                    'id'=>$id,
-                    'status'=>1
-                ],'card_id,title,price');
-            }else{
-                \exception();
-            }
-        }catch (Exception $e){
-           return $this->redirect('index/index');
+    public function cardBuy(){
+        if(isset($_GET["id"]))$id = $_GET["id"];
+        if (is_numeric($id) && $id > 0){
+            $cardInfo = \app\h5\model\VipCard::getInfo([
+                'id'=>$id,
+                'status'=>1
+            ],'card_id,title,price');
+        }else{
+            $cardInfo = '';
         }
-        $this->assign([
-            'cardInfo'=>$cardInfo
-        ]);
-        return $this->fetch();
+        $res = ['cardInfo' => $cardInfo];
+        return json($res);
     }
 
-     //购买卡
+    //购买卡
     public function doCardBuy(){
         try{
             $data = request()->post();
@@ -95,7 +94,7 @@ class Vipcard extends Base
         if($data['pay_method'] == 1){
             $ali = new Alipay();
             $ali->alipay($data);
-          	return $this->fetch('payInfo');
+            return $this->fetch('payInfo');
         }elseif ($data['pay_method'] ==2 ){
             //更新支付方式为微信
             $this->redirect('index.php',['data'=>1]);
@@ -104,18 +103,18 @@ class Vipcard extends Base
     }
 
 
-        //直接激活用户卡片
+    //直接激活用户卡片
     public function activeCard()
     {
         try{
-            if(request ()->isAjax()){
-               $userInfo = MemberInfo::getInfo([
-                'uid'=>$this->userId,
-                'bind'=>1
-            ]);
-            if (!$userInfo){
-                \exception('请完善用户信息后再激活');
-            }
+            if(request ()->isPost()){
+                $userInfo = MemberInfo::getInfo([
+                    'uid'=>$this->userId,
+                    'bind'=>1
+                ]);
+                if (!$userInfo){
+                    \exception('请完善用户信息后再激活');
+                }
                 $data = request()->param();
                 $info = MemberCard::get(['card_number' => $data['card_number'], 'uid' => $this->userId]);
                 if(empty($info)){
@@ -159,20 +158,19 @@ class Vipcard extends Base
                 //更改卡片状态
                 CardList::where(['card_number' => $data['card_number']])->update(['state' => 0]);
 
-                return ['code' => 1, 'msg' => '激活成功'];
+                return json(['code' => 1, 'msg' => '激活成功']);
 
             }
         }catch (Exception $e){
             $msg =  $e->getMessage ();
-            return ['code' => 0, 'msg' => $msg];
+            return json(['code' => 0, 'msg' => $msg]);
 
         }
 
     }
 
 
-
-    public function cardActive()
+    public function cardShow()
     {
         $bind = 0;
         $memberXx = MemberInfo::getInfo ([
@@ -181,18 +179,27 @@ class Vipcard extends Base
         if(!empty($memberXx)){
             $bind = $memberXx->bind;
         }
-        if (request ()->isGet ()){
-            $cards = \app\h5\model\VipCard::getAll ('title,card_id,card_type',[
-                'status'=>1
-            ],'price asc');
-            $this->assign ([
-                'cards'=>$cards,
-                'uInfo'=>$this->userInfo,
-                'memberXx'=> $memberXx,
-                'bind'    => $bind
-            ]);
-            return $this->fetch();
-        }elseif (request ()->isPost()){
+        if (request ()->isGet ()) {
+            $cards = \app\h5\model\VipCard::getAll('title,card_id,card_type', [
+                'status' => 1
+            ], 'price asc');
+            $res = [
+                'cards' => $cards,
+                'uInfo' => $this->userInfo,
+                'memberXx' => $memberXx,
+                'bind' => $bind
+            ];
+
+            return json($res);
+        }
+
+    }
+
+
+    public function cardActive()
+    {
+
+        if(request ()->isPost()){
             Db::startTrans ();
             try{
                 $data = request ()->post ();
@@ -205,7 +212,7 @@ class Vipcard extends Base
                     'card_number'=>$data['card_number'],
                     'buy_type'=>2
                 ],'id,card_number,password,card_id,state',true);
-              	
+
                 if ($card->card_type == 1){
                     $this->validateCheck ('CardActive1',$data);
                     if ($this->userInfo->parent_id == 0){
@@ -217,8 +224,8 @@ class Vipcard extends Base
                             \exception ('推荐人不存在');
                         }
                         if($this->userInfo->mobile == $data['pmobile']){
-                			\exception ('推荐人手机号不能填写自己的手机号');
-                		}
+                            \exception ('推荐人手机号不能填写自己的手机号');
+                        }
                         $memberInfo = Member::getInfo ([
                             'id'=>$this->userId
                         ],'*',true);
@@ -263,7 +270,7 @@ class Vipcard extends Base
                 MemberCard::infoAdd ($addData,[
                     'play_count','play_time','card_id','card_type','uid','create_time','end_time','activate','card_number','password'
                 ]);
-               //更改用户为有效会员
+                //更改用户为有效会员
                 $code = $this->createCode(8); //生成邀请码
                 if($this->userInfo->valid == 0){
                     Member::where(['id' => $this->userId])->update(['valid' => 1,'code' => $code]);
@@ -273,12 +280,16 @@ class Vipcard extends Base
                 Db::commit ();
             }catch (Exception $e){
                 Db::rollback ();
-                return $this->error ($e->getMessage ());
+                $res = [
+                    'code' => 0,
+                    'msg'  => $e->getMessage ()
+                ];
+                return json($res);
             }
-            return $this->success ('卡片已加入卡包','user/usercard',null,2);
+            return json(['code' => 1, 'msg' => '卡片已加入卡包', 'url' => 'user/usercard']);
         }
-        //接收post参数处理
     }
+    
 
     public function addPeopleCount($idStr,$id){
         Member::where('id','eq',$id)->setInc ('zt_count',1);
