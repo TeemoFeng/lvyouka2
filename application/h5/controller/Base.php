@@ -20,7 +20,7 @@ class Base extends Controller
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
-        session('user_id', 1);
+        session('user_id', 12);
 
         if(!session('user_id')){
 
@@ -120,6 +120,16 @@ class Base extends Controller
         }catch (Exception $e){
             echo $e->getMessage ();
         }
+
+    }
+
+    //生成邀请码
+    function createCode( $length = 8 )
+    {
+
+        $str = substr(md5(time()), 0, $length);
+
+        return $str;
 
     }
 

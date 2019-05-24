@@ -15,7 +15,7 @@ class AlipayService extends Controller
         $this->appId = $appid;
         $this->returnUrl = $returnUrl;
         $this->notifyUrl = $notifyUrl;
-        $this->charset = 'utf8';
+        $this->charset = 'utf-8';
         $this->rsaPrivateKey=$saPrivateKey;
     }
     /**
