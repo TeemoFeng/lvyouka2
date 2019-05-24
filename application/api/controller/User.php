@@ -89,7 +89,7 @@ class User extends Base
 
                 $dataR = array();
                 $dataR['cardId'] = $cardId;
-                $dataR['header'] = $header;
+                $dataR['header'] = $herder;
 
                 return json($dataR);
             }
