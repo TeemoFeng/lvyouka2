@@ -204,6 +204,15 @@ class User extends Base
             return json(['code' => 0, 'msg' => $e->getMessage()]);
         }
 
+
+        $dataR = array();
+        $dataR['code'] = 1;
+        $dataR['userInfo'] = $userInfo;
+        return json($dataR);
+    }
+
+    public function ajaxUserIntegral(){
+
         $list = Finance::getInfoPage ([
             'uid'=>$this->userId,
         ],'content,create_time,price,balance,plusormin','id DESC','15');
@@ -212,26 +221,10 @@ class User extends Base
         }
 
         $dataR = array();
-        $dataR['code'] = 1;
-        $dataR['userInfo'] = $userInfo;
         $dataR['list'] = $list;
         return json($dataR);
-    }
 
-//    public function ajaxUserIntegral(){
-//
-//        $list = Finance::getInfoPage ([
-//            'uid'=>$this->userId,
-//        ],'content,create_time,price,balance,plusormin','id DESC','15');
-//        if(empty($list)){
-//            $list = [];
-//        }
-//
-//        $dataR = array();
-//        $dataR['list'] = $list;
-//        return json($dataR);
-//
-//    }
+    }
 
 
     /**
