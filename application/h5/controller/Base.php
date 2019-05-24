@@ -20,7 +20,7 @@ class Base extends Controller
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
-        session('user_id', 12);
+        session('user_id', 1);
 
         if(!session('user_id')){
 

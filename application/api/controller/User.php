@@ -198,34 +198,40 @@ class User extends Base
                 'status'=>1
             ],'username,mobile,integral,valid,zt_count,all_integral,wx_header_image');
             if (!$userInfo){
-                echo json_encode(array("msg"=>"账号不存在或已被封禁"));die;
+                \exception ('账号不存在或已被封禁');
             }
         }catch (Exception $e){
+            return json(['code' => 0, 'msg' => $e->getMessage()]);
+        }
 
+        $list = Finance::getInfoPage ([
+            'uid'=>$this->userId,
+        ],'content,create_time,price,balance,plusormin','id DESC','15');
+        if(empty($list)){
+            $list = [];
         }
 
         $dataR = array();
+        $dataR['code'] = 1;
         $dataR['userInfo'] = $userInfo;
-
+        $dataR['list'] = $list;
         return json($dataR);
     }
 
-    public function ajaxUserIntegral(){
-        
-            try{
-                $list = Finance::getInfoPage ([
-                    'uid'=>$this->userId,
-                ],'content,create_time,price,balance,plusormin','id DESC','15');
-            }catch (Exception $e){
-                echo json_encode(array("msg"=>"获取失败"));die;
-            }
-
-            $dataR = array();
-            $dataR['list'] = $list;
-
-            return json($dataR);
-        
-    }
+//    public function ajaxUserIntegral(){
+//
+//        $list = Finance::getInfoPage ([
+//            'uid'=>$this->userId,
+//        ],'content,create_time,price,balance,plusormin','id DESC','15');
+//        if(empty($list)){
+//            $list = [];
+//        }
+//
+//        $dataR = array();
+//        $dataR['list'] = $list;
+//        return json($dataR);
+//
+//    }
 
 
     /**
