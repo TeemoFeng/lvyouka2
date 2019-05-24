@@ -26,4 +26,11 @@ class Base extends Controller
         ]);
     }
 
+    protected function validateCheck($validateName,$data){
+        $validate = validate($validateName);
+        if (!$validate->check($data)){
+            \exception ($validate->getError ());
+        }
+    }
+
 }

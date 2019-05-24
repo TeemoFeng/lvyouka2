@@ -289,22 +289,36 @@ class User extends Base
     }
 
 
-    public function infoBind($from = 0){
-        if(isset($_GET['from']))$from = $_GET['from'];
-        $infobind = MemberInfo::getInfo ([
-            'uid'=>$this->userId,
-        ]);
-      	$bind = 0;
-      	if(!empty($infobind)){
-        	$bind = 1;
-        }
-        if (request ()->isGet ()){
-            $this->assign ([
-                'info'=>$infobind,
+    public function userInfo()
+    {
+        if (request ()->isGet ()) {
+            $from = request()->param('from');
+            $infobind = MemberInfo::getInfo([
+                'uid' => $this->userId,
+            ]);
+            $bind = 0;
+            if (!empty($infobind)) {
+                $bind = 1;
+            }
+            $res = [
+                'info' => $infobind,
                 'bind' => $bind,
                 'from' => $from,
+            ];
+            return json($res);
+        }
+
+    }
+
+    public function infoBind(){
+        if (request ()->isPost ()){
+            $infobind = MemberInfo::getInfo ([
+                'uid'=>$this->userId,
             ]);
-        }elseif (request ()->isPost ()){
+            $bind = 0;
+            if(!empty($infobind)){
+                $bind = 1;
+            }
             $data = request ()->post ();
             Db::startTrans ();
             if ($bind == 1){
@@ -334,13 +348,12 @@ class User extends Base
                 Db::commit ();
             }catch (Exception $e){
                 Db::rollback ();
-                return $this->error ($e->getMessage ());
+                return json(['code' => 0, 'msg' => $e->getMessage()]);
             }
             if($data['from'] == 1){
-                echo json_encode(array("msg"=>"信息绑定成功","else"=>"vipcard/cardActive"));die;
+                return json(['code' => 1, 'msg' => '信息绑定成功', 'from' => 1, 'url' => 'vipcard/cardActive']);
             }
-            echo json_encode(array("msg"=>"信息绑定成功"));die;
-
+            return json(['code' => 1, 'msg' => '信息绑定成功', 'from' => 0]);
 
         }
     }
