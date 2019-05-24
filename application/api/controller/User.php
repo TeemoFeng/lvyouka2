@@ -55,42 +55,44 @@ class User extends Base
     public function userCard($cardId = 0)
     {
         if(isset($_GET['cardId']))$cardId = $_GET['cardId'];
-        if($_GET['type'] == 2){
-            try{
-                $list = MemberCard::getInfoPage ([
-                    'uid'=>$this->userId,
-                    'card_id'=>$cardId,
-                    'state'=>1
-                ],'card_number,card_id,password,activate','id ASC',100);
-                foreach ($list as $key=>$value){
-                    $imagePath = \app\h5\model\VipCard::getValue ([
-                        'card_id'=>$value->card_id,
-                        'status'=>1
-                    ],'image_path');
-                    $value->image_path = request ()->domain ().$imagePath;
+        if(isset($_GET['type'])){
+            if($_GET['type'] == 2){
+                try{
+                    $list = MemberCard::getInfoPage ([
+                        'uid'=>$this->userId,
+                        'card_id'=>$cardId,
+                        'state'=>1
+                    ],'card_number,card_id,password,activate','id ASC',100);
+                    foreach ($list as $key=>$value){
+                        $imagePath = \app\h5\model\VipCard::getValue ([
+                            'card_id'=>$value->card_id,
+                            'status'=>1
+                        ],'image_path');
+                        $value->image_path = request ()->domain ().$imagePath;
+                    }
+                }catch (Exception $e){
+                    echo json_encode(array("msg"=>"获取失败"));die;
                 }
-            }catch (Exception $e){
-                echo json_encode(array("msg"=>"获取失败"));die;
+
+                $dataR = array();
+                $dataR['list'] = $list;
+
+                return json($dataR);
+
+            }elseif ($_GET['type'] == 1) {
+                $herder = \app\h5\model\VipCard::getAll ('title,card_id',[
+                'status'=>1
+                ],'price asc');
+                if (isset($herder[0]) && $cardId == 0){
+                    $cardId = $herder[0]->card_id;
+                }
+
+                $dataR = array();
+                $dataR['cardId'] = $cardId;
+                $dataR['header'] = $header;
+
+                return json($dataR);
             }
-
-            $dataR = array();
-            $dataR['list'] = $list;
-
-            return json($dataR);
-
-        }elseif ($_GET['type'] == 1) {
-            $herder = \app\h5\model\VipCard::getAll ('title,card_id',[
-            'status'=>1
-            ],'price asc');
-            if (isset($herder[0]) && $cardId == 0){
-                $cardId = $herder[0]->card_id;
-            }
-
-            $dataR = array();
-            $dataR['cardId'] = $cardId;
-            $dataR['header'] = $header;
-
-            return json($dataR);
         }
         
     }
@@ -328,7 +330,7 @@ class User extends Base
                 return $this->error ($e->getMessage ());
             }
             if($data['from'] == 1){
-                echo json_encode(array("msg"=>"信息绑定成功","else":"vipcard/cardActive"));die;
+                echo json_encode(array("msg"=>"信息绑定成功","else"=>"vipcard/cardActive"));die;
             }
             echo json_encode(array("msg"=>"信息绑定成功"));die;
 
