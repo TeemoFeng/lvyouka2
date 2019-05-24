@@ -358,7 +358,7 @@ class User extends Base
         }
     }
 
-   /**
+    /**
      * 意见反馈提交操作
      * @return mixed
      * @auther enfu
@@ -424,13 +424,51 @@ class User extends Base
     {
         //获取用户携带来的邀请码
         $code = request()->param('usercode',"");
-        if(empty($code)){
-            return;
-        }else{
-            //
+        try{
+            if(empty($code)){
+                \exception ('推荐人邀请码不存在');
+            }else{
+                //如果不存在推荐人
+                if ($this->userInfo->parent_id == 0){
+                    //查询邀请用户信息
+                    $tjInfo =  Member::getInfo ([
+                        'code' => $code
+                    ],'*',true);
+                    if (!$tjInfo){
+                        \exception ('推荐人不存在');
+                    }
+                    if($this->userInfo->id == $tjInfo->id){
+                        \exception ('自己不能推荐自己');
+                    }
+                    $memberInfo = Member::getInfo ([
+                        'id'=>$this->userId
+                    ],'*',true);
 
+                    $idStr = $tjInfo->parent_idstr.$tjInfo->id.',';
+
+                    Db::startTrans();
+                    $res = $memberInfo::infoEdit ($memberInfo,['parent_id','parent_idstr'],[
+                        'parent_id'=>$tjInfo->id,
+                        'parent_idstr'=>$idStr
+                    ]);
+
+                    $res2 = Member::where('id','eq',$tjInfo->id)->setInc ('zt_count',1);
+                    $res3 = Member::where('id','in',$idStr)->setInc ('team_count',1);
+                    if($res === false || $res2 === false || $res3 === false){
+                        Db::rollback();
+                        \exception ('修改失败');
+                    }else{
+                        Db::commit();
+
+                    }
+                }
+
+            }
+        }catch (Exception $e){
+            return $this->error ($e->getMessage ());
         }
 
+        return $this->success ('注册成功','index/index',null,2);
 
     }
 
