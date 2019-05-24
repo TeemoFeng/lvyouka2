@@ -108,14 +108,14 @@ class Base extends Controller
                     $data['last_login_time'] = time();
                     $res = $member->add($data);
                     if($res == false){
-                        exception ('授权失败');
+                        \exception ('授权失败');
                     }
                     session('user_id', $res);
                     session('openid', $user['openid']);
                 }
 
             }else{
-                exception ('请先授权登录');
+                \exception ('请先授权登录');
             }
         }catch (Exception $e){
             echo $e->getMessage ();

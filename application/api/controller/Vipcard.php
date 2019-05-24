@@ -350,30 +350,30 @@ class Vipcard extends Base
 
     #获取用户所有的卡
     public function getMemberAllCard(){
-            try{
-                if (request ()->isPost()){
-                    $cardId = request ()->post ('card_id');
-                    $cardInfo = \app\h5\model\VipCard::getCard ($cardId,'card_type');
-                    if (!$cardInfo){
-                        \exception ('卡片种类不存在');
-                    }
-                    $list = MemberCard::getAll('card_number,id',[
-                        'uid'=>$this->userId,
-                        'card_id'=>$cardId,
-                        'activate'=>0,
-                        'card_type'=>$cardInfo->card_type
-                    ],'id ASC');
-                }else{
-                    \exception ('请求错误');
+        try{
+            if (request ()->isPost()){
+                $cardId = request ()->post ('card_id');
+                $cardInfo = \app\h5\model\VipCard::getCard ($cardId,'card_type');
+                if (!$cardInfo){
+                    \exception ('卡片种类不存在');
                 }
-
-            }catch (Exception $e){
-                $res = ['code' => 0, 'msg' => $e->getMessage() ];
-                return json($res);
+                $list = MemberCard::getAll('card_number,id',[
+                    'uid'=>$this->userId,
+                    'card_id'=>$cardId,
+                    'activate'=>0,
+                    'card_type'=>$cardInfo->card_type
+                ],'id ASC');
+            }else{
+                \exception ('请求错误');
             }
 
-            $res = ['code' => 1, 'msg' => '获取成功', 'list' => $list];
+        }catch (Exception $e){
+            $res = ['code' => 0, 'msg' => $e->getMessage() ];
             return json($res);
+        }
+
+        $res = ['code' => 1, 'msg' => '获取成功', 'list' => $list];
+        return json($res);
 
     }
 }

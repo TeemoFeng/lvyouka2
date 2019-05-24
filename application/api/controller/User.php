@@ -25,7 +25,6 @@ class User extends Base
     {
         if(request()->isPost()){
             $data = request ()->post();
-            if()
         }
     }
 
