@@ -20,6 +20,15 @@ use think\Image;
 
 class User extends Base
 {
+    //微信授权之后请求
+    public function login()
+    {
+        if(request()->isPost()){
+            $data = request ()->post();
+            if()
+        }
+    }
+
     /**
      * 首页
      * @auther enfu
