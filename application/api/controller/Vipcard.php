@@ -289,25 +289,29 @@ class Vipcard extends Base
             return json(['code' => 1, 'msg' => '卡片已加入卡包', 'url' => 'user/usercard']);
         }
     }
-    
+
 
     public function addPeopleCount($idStr,$id){
         Member::where('id','eq',$id)->setInc ('zt_count',1);
         Member::where('id','in',$idStr)->setInc ('team_count',1);
     }
 
+    //卡片互转页面显示
+    public function cardMakeShow()
+    {
+        $cards = \app\h5\model\VipCard::getAll ('title,card_id',[
+            'status'=>1
+        ],'price ASC');
+        $res = [
+            'cards' => $cards
+        ];
+        return json($res);
+    }
 
     //卡片互转
     public function cardMakeOut(){
-        if (request ()->isGet ()){
-            $cards = \app\h5\model\VipCard::getAll ('title,card_id',[
-                'status'=>1
-            ],'price ASC');
-            $this->assign ([
-                'cards'=>$cards
-            ]);
-            return $this->fetch ();
-        }elseif (request ()->isPost ()){
+
+        if (request ()->isPost ()){
             $data = request ()->post ();
             Db::startTrans ();
             try{
@@ -336,31 +340,40 @@ class Vipcard extends Base
                 Db::commit ();
             }catch (Exception $e){
                 Db::rollback ();
-                return $this->error ($e->getMessage ());
+                $res = ['code' => 0, 'msg' => $e->getMessage()];
+                return json($res);
             }
-            return $this->success ('卡片已转出');
+            return json(['code' => 1, 'msg' => '卡片已转出']);
         }
     }
 
 
     #获取用户所有的卡
-    public function getMemberAllCard($cardId){
-        if (request ()->isAjax ()){
+    public function getMemberAllCard(){
             try{
-                $cardInfo = \app\h5\model\VipCard::getCard ($cardId,'card_type');
-                if (!$cardInfo){
-                    \exception ('卡片种类不存在');
+                if (request ()->isPost()){
+                    $cardId = request ()->post ('card_id');
+                    $cardInfo = \app\h5\model\VipCard::getCard ($cardId,'card_type');
+                    if (!$cardInfo){
+                        \exception ('卡片种类不存在');
+                    }
+                    $list = MemberCard::getAll('card_number,id',[
+                        'uid'=>$this->userId,
+                        'card_id'=>$cardId,
+                        'activate'=>0,
+                        'card_type'=>$cardInfo->card_type
+                    ],'id ASC');
+                }else{
+                    \exception ('请求错误');
                 }
-                $list = MemberCard::getAll('card_number,id',[
-                    'uid'=>$this->userId,
-                    'card_id'=>$cardId,
-                    'activate'=>0,
-                    'card_type'=>$cardInfo->card_type
-                ],'id ASC');
+
             }catch (Exception $e){
-                return $this->error ($e->getMessage ());
+                $res = ['code' => 0, 'msg' => $e->getMessage() ];
+                return json($res);
             }
-            return $this->success ('获取成功','',$list);
-        }
+
+            $res = ['code' => 1, 'msg' => '获取成功', 'list' => $list];
+            return json($res);
+
     }
 }
