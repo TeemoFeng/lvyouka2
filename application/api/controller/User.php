@@ -89,7 +89,7 @@ class User extends Base
 
                 $dataR = array();
                 $dataR['cardId'] = $cardId;
-                $dataR['header'] = $header;
+                $dataR['header'] = $herder;
 
                 return json($dataR);
             }
@@ -115,7 +115,7 @@ class User extends Base
 
 
         $dataR = array();
-        $dataR['headerList'] = $headerList;
+        $dataR['headerList'] = $header;
         $dataR['state'] = $state;
 
         return json($dataR);
@@ -240,7 +240,7 @@ class User extends Base
 
         $dataR = array();
         $dataR['list'] = $list;
-        $dataR['userInfo'] = $userInfo;
+        $dataR['userInfo'] = $this->userInfo;
 
         return json($dataR);
     }
@@ -372,7 +372,7 @@ class User extends Base
         }elseif (request ()->isPost ()){
             try{
                 $data = request ()->post();
-                $this->validateCheck ('UserFeedback',$data);
+                // $this->validateCheck ('UserFeedback',$data);
                 MemberFeedback::infoAdd ([
                     'uid'=>$this->userId,
                     'content'=>$data['content']

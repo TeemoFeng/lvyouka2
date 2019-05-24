@@ -56,6 +56,8 @@ class Trip extends Base
         $dataR['info'] = $info;
         $dataR['banner'] = $banner;
         $dataR['journey'] = $journey;
+        $dataR['w_vid'] = $journey->w_vid;
+
 
         return json($dataR);
     }
@@ -95,11 +97,12 @@ class Trip extends Base
             exit;
             //return $this->redirect ('h5/Index/index');
         }
-
+        // dump($journey->w_vid);die;
         $dataR = array();
         $dataR['info'] = $info;
         $dataR['banner'] = $banner;
         $dataR['journey'] = $journey;
+        $dataR['w_vid'] = $journey->w_vid;
 
         return json($dataR);
     }
