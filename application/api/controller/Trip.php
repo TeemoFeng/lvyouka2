@@ -261,6 +261,7 @@ class Trip extends Base
             $dataR['order_id'] = $result->id;
             $dataR['cash'] = $data['cash'];
             $dataR['code'] = 1;
+            $dataR['msg'] = '预约成功';
 
             return json($dataR);
         }

@@ -27,18 +27,19 @@ class Base extends Controller
             if(self::isWechatAccess())
             {
                 self::saveWechatUser();
+                $this->userId = session('user_id');
                 $this->userInfo = Member::getInfo ([
                     'id'=>$this->userId
                 ]);
             } else {
                 header('Location:'.$this->url);
             };
+        }else{
+            $this->userId = session('user_id');
+            $this->userInfo = Member::getInfo ([
+                'id'=>$this->userId
+            ]);
         }
-
-        $this->userId = session('user_id');
-        $this->userInfo = Member::getInfo ([
-            'id'=>$this->userId
-        ]);
 
 
     }

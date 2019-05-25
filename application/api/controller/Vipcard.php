@@ -79,14 +79,15 @@ class Vipcard extends Base
             if($result == false){
                 \exception('创建失败，请重试');
             }
-
+            //暂时直接调用支付回调
+            $this->cardBuyReturn($result->id);
 
         }catch (Exception $e){
-            return $this->error($e->getMessage());
+            return json(['code' => 0, 'msg' => $e->getMessage()]);
         }
-        return $this->success('提交成功','',[
-            'order_number' => $data['order_number'],
-        ]);
+
+        return json(['code' => 0, 'msg' => '提交成功', 'order_number' => $data['order_number']]);
+
     }
 
     public function paySelect($order_number){
@@ -98,6 +99,81 @@ class Vipcard extends Base
         }elseif ($data['pay_method'] ==2 ){
             //更新支付方式为微信
             $this->redirect('index.php',['data'=>1]);
+        }
+
+    }
+
+    //买卡成功后回调
+    public function cardBuyReturn($id){
+        Db::startTrans ();
+        try{
+            #获取订单信息判断
+            $order = CardOrder::getInfo([
+                'id'=>$id,
+                'state'=>1
+            ],'card_id,buy_num,uid,id,price',true);
+            if (!$order){
+                \exception('订单不存在或已处理');
+            }
+            $cardInfo = \app\h5\model\VipCard::getCard ($order->card_id,'*');
+            if (!$cardInfo){
+                \exception ('卡不存在');
+            }
+            #获取卡号密码
+            $cardList = CardList::getCards ($order->buy_num,$order->card_id);
+            #赠送用户卡
+            MemberCard::setMemberCard($order->buy_num,$order->uid,$order->card_id,$cardList);
+            #修改订单支付状态
+            $order::infoEdit($order,['state','payment_time'],[
+                'state' => 2,
+                'payment_time' => time(),
+            ]);
+
+            #发送奖励 升级
+            //购买人信息
+            $memberInfo = Member::getInfo ([
+                'id'=>$order->uid
+            ],'parent_idstr,id');
+            $idArr = explode (',',substr ($memberInfo->parent_idstr,2,-1));
+            $idArr = array_reverse ($idArr);
+            $buyMemberLevel = MemberLevel::getInfo ([
+                'card_id'=>$order->card_id,
+                'uid'=>$order->uid,
+            ],'id,state');
+            $levelConditions = LevelCondition::where([
+                'status'=>1,
+                'card_id'=>$order->card_id
+            ])->column ('zt_num_condition,team_num_condition,bonus_type,bonus_proportion,level_title','level_number');
+            if ($buyMemberLevel && $buyMemberLevel->state == 0){
+                $buyMemberLevel::infoEdit ($buyMemberLevel,[
+                    'state'
+                ],[
+                    'state'=>1
+                ]);
+                MemberLevel::memberUpgrade ($idArr,$order->card_id,$levelConditions);
+            }elseif (!$buyMemberLevel){
+                MemberLevel::infoAdd ([
+                    'uid'=>$order->uid,
+                    'card_id'=>$order->card_id,
+                    'state'=>1,
+                ]);
+                MemberLevel::memberUpgrade ($idArr,$order->card_id,$levelConditions);
+            }
+            if ($cardInfo->open == 1){
+                MemberLevel::yjAward($idArr,$order->card_id,$order->price, $levelConditions);
+            }
+            Db::commit ();
+        }catch (Exception $e){
+            $info =  $e->getMessage ();
+            Db::rollback ();
+            //失败存入订单异常表
+            $exce = [
+                'order_id'  => $id,
+                'info'      => $info,
+                'status'    => 0,
+                'create_time'   => time()
+            ];
+            Db::name('order_exception')->insert($exce);
         }
 
     }
@@ -313,6 +389,7 @@ class Vipcard extends Base
 
         if (request ()->isPost ()){
             $data = request ()->post ();
+            dump($data);die;
             Db::startTrans ();
             try{
                 $this->validateCheck ('CardMakeOut',$data);

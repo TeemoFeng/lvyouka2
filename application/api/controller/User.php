@@ -292,7 +292,7 @@ class User extends Base
     public function userInfo()
     {
         if (request ()->isGet ()) {
-            $from = request()->param('from');
+            $from = input('param.from');
             $infobind = MemberInfo::getInfo([
                 'uid' => $this->userId,
             ]);
