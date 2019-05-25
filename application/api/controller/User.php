@@ -20,13 +20,41 @@ use think\Image;
 
 class User extends Base
 {
-    //微信授权之后请求
-    public function login()
-    {
-        if(request()->isPost()){
-            $data = request ()->post();
+
+    //微信登录
+    public function wxlogin(){
+        $get = input('get.');
+        $param['appid'] = '';    //小程序id
+        $param['secret'] = '';    //小程序密钥
+        $param['js_code'] = define_str_replace($get['code']);
+        $param['grant_type'] = 'authorization_code';
+        $http_key = httpCurl('https://api.weixin.qq.com/sns/jscode2session', $param, 'GET');
+        $session_key = json_decode($http_key,true);
+        //print_r(http_build_query($param));
+        if (!empty($session_key['session_key'])) {
+            $appid = $param['appid'];
+            $encrypteData = urldecode($get['encrypteData']);
+            $iv = define_str_replace($get['iv']);
+            $errCode = decryptData($appid, $session_key['session_key'], $encrypteData, $iv);
+            //把appid写入到数据库中
+            $data['appid'] = $errCode['openId'];
+            $data['nicheng'] = $errCode['nickName'];
+            $data['publishtime'] = time();
+            $data['sex'] = $errCode['gender'];
+            if (false == $this->user->where(['appid' => $data['appid']])->find()) {
+                $this->user->insert($data);
+            }else{
+                $value = $this->user->where(['appid' => $data['appid']])->field('name,tel,birthday,industry,address')->select();
+            }
+            $array = array_merge_recursive($errCode, $value);
+            return json($array);
+        }else{
+            echo '获取session_key失败！';
         }
     }
+
+
+
 
     /**
      * 首页
@@ -41,11 +69,10 @@ class User extends Base
                 'status'=>1
             ],'username,mobile,integral,valid,zt_count,all_integral,wx_header_image');
             if (!$userInfo){
-                // \exception ('账号不存在或已被封禁');
-                echo json_encode(array("msg"=>"账号不存在或已被封禁"));die;
+                 \exception ('账号不存在或已被封禁');
             }
         }catch (Exception $e){
-            // return $this->redirect ('index/index');
+            return json(['code' => 0, 'msg' => $e->getMessage (), 'url' => 'index/index']);
         }
 
         $dataR = array();
@@ -79,7 +106,7 @@ class User extends Base
                         $value->image_path = request ()->domain ().$imagePath;
                     }
                 }catch (Exception $e){
-                    echo json_encode(array("msg"=>"获取失败"));die;
+                    return json(['code' => 0, 'msg' => '获取失败']);
                 }
 
                 $dataR = array();
@@ -176,11 +203,12 @@ class User extends Base
             }
 
             $dataR = array();
+            $dataR['code'] = 1;
             $dataR['Order'] = $Order;
 
             return json($dataR);
         }catch (Exception $e){
-            // return $this->error ($e->getMessage (),'',[]);
+            return json(['code' => 0, 'msg' => $e->getMessage ()]);
         }
         
     }
@@ -221,6 +249,7 @@ class User extends Base
         }
 
         $dataR = array();
+        $dataR['code'] = 1;
         $dataR['list'] = $list;
         return json($dataR);
 
@@ -246,6 +275,7 @@ class User extends Base
         }
 
         $dataR = array();
+        $dataR['code'] = 1;
         $dataR['list'] = $list;
         $dataR['userInfo'] = $this->userInfo;
 
@@ -266,13 +296,14 @@ class User extends Base
                 'status'=>1
             ],'username,mobile,integral,valid,zt_count,all_integral,wx_header_image');
             if (!$userInfo){
-                echo json_encode(array("msg"=>"账号不存在或已被封禁"));die;
+                \exception ('账号不存在或已被封禁');
             }
         }catch (Exception $e){
-            // return $this->redirect ('index/index');
+            return json(['code' => 0, 'msg' => $e->getMessage(), 'url' => 'index/index' ]);
         }
 
         $dataR = array();
+        $dataR['code'] = 1;
         $dataR['userInfo'] = $userInfo;
 
         return json($dataR);
@@ -392,15 +423,15 @@ class User extends Base
         }elseif (request ()->isPost ()){
             try{
                 $data = request ()->post();
-                // $this->validateCheck ('UserFeedback',$data);
+                $this->validateCheck ('UserFeedback',$data);
                 MemberFeedback::infoAdd ([
                     'uid'=>$this->userId,
                     'content'=>$data['content']
                 ],['create_time','content','uid']);
             }catch (Exception $e){
-                // return $this->error ($e->getMessage ());
+                return json(['code' => 0, 'msg' => $e->getMessage ()]);
             }
-            echo json_encode(array("msg"=>"意见反馈成功"));die;
+            return json(['code' => 1, 'msg' => '意见反馈成功']);
         }
     }
 
@@ -456,6 +487,7 @@ class User extends Base
         }
    
         $dataR = array();
+        $dataR['code'] = 1;
         $dataR['code_path'] = request ()->domain ().$path;
 
         return json($dataR);

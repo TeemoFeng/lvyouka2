@@ -109,6 +109,7 @@ class WechatOauth
        //查询用户是否已经注册
         $user_info = Db::name('member')->where(['openid' => $access_token['openid']])->find();
         if($user_info){
+
             session('user_id', $user_info['id']);
             session('openid', $user_info['openid']);
             return $user_info;

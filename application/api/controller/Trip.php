@@ -35,21 +35,21 @@ class Trip extends Base
                     'status'=>['eq',1]
                 ],'id,v_id,mobile,this_people_count,max_people_count,s_time,e_time,sc_id');
                 if (empty($journey)){
-                    // \exception ('');
+                     \exception ('');
                 }
                 $info = $journey->getScenic('id,circuit,title,star,addr,introduce,notice')->where('status','eq',1)->find();
                 if (empty($info)){
-                    // \exception ('');
+                     \exception ('');
                 }
                 $banner = $info->ScenicImage()->select();
                 $info->circuit = htmlspecialchars_decode($info->circuit);
                 $info->introduce = htmlspecialchars_decode($info->introduce);
                 $info->notice = htmlspecialchars_decode($info->notice);
             }else{
-                // \exception ('');
+                 \exception ('');
             }
         }catch (Exception $e){
-            // return $this->redirect ('h5/Index/index');
+            return json(['code' => 0 ,'msg' => '获取失败']);
         }
 
         $dataR = array();
@@ -79,25 +79,23 @@ class Trip extends Base
                     'status'=>['eq',1]
                 ],'id,v_id,mobile,max_people_count,s_time,e_time,sc_id');
                 if (empty($journey)){
-                    // \exception ('');
+                     \exception ('');
                 }
                 $info = $journey->getScenic('id,circuit,title,star,addr,introduce,notice')->where('status','eq',1)->find();
                 if (empty($info)){
-                    // \exception ('');
+                     \exception ('');
                 }
                 $banner = $info->ScenicImage()->select();
                 $info->circuit = htmlspecialchars_decode($info->circuit);
                 $info->introduce = htmlspecialchars_decode($info->introduce);
                 $info->notice = htmlspecialchars_decode($info->notice);
             }else{
-                // \exception ('');
+                 \exception ('');
             }
         }catch (Exception $e){
-            // echo $e->getMessage ();
-            exit;
+            return json(['code' => 0 ,'msg' => '获取失败']);
             //return $this->redirect ('h5/Index/index');
         }
-        // dump($journey->w_vid);die;
         $dataR = array();
         $dataR['info'] = $info;
         $dataR['banner'] = $banner;
@@ -150,15 +148,9 @@ class Trip extends Base
             $card = \app\h5\model\VipCard::getCard($jouInfo->card_id,'card_type,image_path');
             $memberCards = MemberCard::getMemberCards($this->userId,$jouInfo->card_id,$card->card_type,'id,card_number');
         }catch (Exception $e){
-            // if (request ()->isAjax ()){
-            //     return $this->error ($e->getMessage ());
-            // }
-            // return $this->redirect ('index/index');
+            return json(['code' => 0, 'msg' => $e->getMessage ()]);
         }
-        if (request ()->isAjax ()){
-            // return $this->success ('预约中..',"trip/tripOrder?jid=".$jid,null,0);
-        }
-        
+
         $dataR = array();
         $dataR['card'] = $card;
         $dataR['jouInfo'] = $jouInfo;
@@ -168,7 +160,7 @@ class Trip extends Base
     }
 
 
-       #遍历出行人信息
+    #遍历出行人信息
     private function getPeopleInfos($data,$returnArr = []){
         if (!isset($data['name'])){
             \exception ('请添加出行人');
@@ -249,13 +241,8 @@ class Trip extends Base
                 $this->journeyOrderCallBack($result->id);
             }catch (Exception $e){
                 Db::rollback ();
-                return $this->error ($e->getMessage ());
+                return json(['code' => 0, 'msg' => $e->getMessage ()]);
             }
-            // return $this->success('预约成功','',[
-            //     'order_id'=>$result->id,
-            //     'cash'=>$data['cash'],
-            //     'code' => 1,
-            // ]);
 
             $dataR = array();
             $dataR['order_id'] = $result->id;
