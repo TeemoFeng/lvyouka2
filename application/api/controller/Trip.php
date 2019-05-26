@@ -152,6 +152,7 @@ class Trip extends Base
         }
 
         $dataR = array();
+        $dataR['code'] = 1;
         $dataR['card'] = $card;
         $dataR['jouInfo'] = $jouInfo;
         $dataR['memberCards'] = $memberCards;
@@ -190,6 +191,14 @@ class Trip extends Base
                         $this->validateCheck ('PeopleCheck',$touristInfo[$key]);
                     }
                 }
+                if(empty($data['phone'])){
+                    \exception('请填写联系人手机号');
+                }
+                if(empty($data['travel_time'])){
+                    \exception('请选择出行时间');
+                }
+
+
                 $jouInfo = $this->getJourStatus($data['j_id']);
                 $card = \app\h5\model\VipCard::getCard($jouInfo->card_id,'card_type,title');
                 $data['xz_card_num'] = 1;
@@ -229,7 +238,7 @@ class Trip extends Base
                 $data['cash'] = $data['people_count'] * $jouInfo->cash;
                 $data['order_number'] = date ('Ymd').substr (microtime (true),0,10);
                 $data['card_id'] = $jouInfo->card_id;
-                $result = Order::infoAdd ($data,['order_number','card_id','site','create_time','people_count','j_id','cash','uid','xz_card_num']);
+                $result = Order::infoAdd ($data,['order_number','card_id','site','create_time','people_count','j_id','cash','uid','xz_card_num','travel_time','phone']);
                 foreach ($touristInfo as $k=>$v){
                     $touristInfo[$k]['oid'] = $result->id;
                     $touristInfo[$k]['j_id'] = $data['j_id'];

@@ -20,10 +20,16 @@ class Base extends Controller
     {
         parent::__construct($request);
         session('user_id',1);
-        $this->userId = session('user_id');
-        $this->userInfo = Member::getInfo ([
-            'id'=>$this->userId
-        ]);
+
+        if(!session('user_id')){
+            return json(['code' => 0, 'msg' => '登录过期请重新登录', 'url' => 'login/wxlogin']);
+        }else{
+            $this->userId = session('user_id');
+            $this->userInfo = Member::getInfo ([
+                'id'=>$this->userId
+            ]);
+        }
+
     }
 
     protected function validateCheck($validateName,$data){

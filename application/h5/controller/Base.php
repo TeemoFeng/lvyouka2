@@ -21,7 +21,6 @@ class Base extends Controller
     {
         parent::__construct($request);
         session('user_id', 1);
-
         if(!session('user_id')){
 
             if(self::isWechatAccess())
