@@ -17,7 +17,7 @@ use think\Exception;
 
 class Order extends AdminBase
 {
-    public function orderList1($jid){
+    public function orderList1($jid = 0){
         $list = \app\wycadmin\model\Order::getInfoPage ([
             'status'=>1,
             'state'=>['>',2],

@@ -159,7 +159,7 @@ class Trip extends Base
     }
 
 
-       #遍历出行人信息
+    #遍历出行人信息
     private function getPeopleInfos($data,$returnArr = []){
         if (!isset($data['name'])){
             \exception ('请添加出行人');
@@ -172,7 +172,7 @@ class Trip extends Base
     }
 
 
-   #提交预约
+    #提交预约
     public function reserveSubmit(){
         if (request ()->isPost ()){
             $data = request ()->post ();
