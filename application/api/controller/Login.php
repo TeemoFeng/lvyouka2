@@ -67,4 +67,15 @@ class Login extends Controller {
             return json(['code' => 0, 'msg' => '获取session_key失败！']);
         }
     }
+
+    public function synUser()
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx86f2c25b07aa9f93&secret=0d9c4906445b1660aaa408e5bd7c0d49';
+        $param['grant_type'] = 'client_credential';
+        $param['appid'] = 'wx86f2c25b07aa9f93';
+        $param['secret'] = '0d9c4906445b1660aaa408e5bd7c0d49';
+        $http_key = httpCurl('https://api.weixin.qq.com/cgi-bin/token', $param, 'GET');
+        dump($http_key);die;
+    }
+
 }
