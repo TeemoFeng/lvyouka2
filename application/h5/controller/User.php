@@ -385,7 +385,7 @@ class User extends Base
             'id'=>$this->userId
         ]);
         $code  = $user_info->code;
-        if(empty($user_info->codes)){
+        if(empty($user_info->code)){
             $code = $this->createCode(8); //生成邀请码
             Member::where(['id' => $this->userId])->update(['code' => $code]);
         }
@@ -468,7 +468,7 @@ class User extends Base
             return $this->error ($e->getMessage ());
         }
 
-        return $this->success ('注册成功','index/index',null,2);
+        return $this->redirect('index/index');
 
     }
 
