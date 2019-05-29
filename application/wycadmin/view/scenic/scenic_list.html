@@ -29,6 +29,27 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
+                    <form action="" method="get">
+
+                        <div class="row">
+
+                            <div class="col-md-5 col-sm-6 col-xs-12 " >
+                                <select class="input-sm form-control input-s-sm inline" style="height: 34px;" name="searchType">
+                                    <option value="0" {{if condition = "$searchType == 0 " "}} selected {{/if}}>全部</option>
+                                    <option value="1" {{if condition = "$searchType == 1 "}} selected {{/if}}>直通车</option>
+                                    <option value="2" {{if condition = "$searchType == 2 " "}} selected {{/if}}>出境游</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" placeholder="旅游景点名字" value="{{$keyWord}}" class="input-sm form-control" name="keyWord" style="height: 34px;">
+                                    <span class="input-group-btn">
+	                                    		<button type="submit" class="btn btn-sm btn-primary" style="height: 34px;"> 搜索</button>
+	                                    	</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="panel">
                         <div class="panel-body">
                             <a href="{{:url('scenic/scenicadd')}}" class="btn  btn-success">新增</a>

@@ -22,20 +22,62 @@ class Scenic extends AdminBase
      * @throws \think\exception\DbException
      */
     public function scenicList($pid = 0){
-        $list = ScenicModel::getInfoPage([
-            'status'=>['neq',$this->delete],
-        ],'status,addr,star,appoint_people,intro,id,title,create_time,update_time,category_id','id DESC',$this->listRows);
-        foreach ($list as &$v){
-            $name = \app\wycadmin\model\Category::where(['id' => $v->category_id])->value('title');
-            $v->category_name = $name;
-        }
+        $searchType = input ('searchType');
+        $keyWord = input ('keyWord');
+//        $list = ScenicModel::getInfoPage([
+//            'status'=>['neq',$this->delete],
+//            ''
+//        ],'status,addr,star,appoint_people,intro,id,title,create_time,update_time,category_id','id DESC',$this->listRows);
+//        foreach ($list as &$v){
+//            $name = \app\wycadmin\model\Category::where(['id' => $v->category_id])->value('title');
+//            $v->category_name = $name;
+//        }
+//
+//        $this->assign (
+//            [
+//                'pid'=>$pid,
+//                'List'=>$list,
+//                'searchType'=>$searchType,
+//            ]
+//        );
 
-        $this->assign (
+//        if ($keyWord != ''){
+//            $pwhere = '';
+//        }
+        $list = model ('Scenic')
+            ->where ('status','neq',$this->delete)
+            ->where(function ($q) use ($searchType,$keyWord){
+                if($searchType)
+                {
+                    if($searchType == 1)
+                    {
+                        $q->where('category_id',2);
+                    }else if($searchType ==2)
+                    {
+                        $q->where('category_id','neq',2);
+                    }
+                }
+                if($keyWord)
+                {
+                    $q->where('title','like','%'.$keyWord.'%');
+                }
+            })
+            ->paginate ($this->listRows,false,$this->page)
+            ->each (function ($item,$key){
+                $name = \app\wycadmin\model\Category::where(['id' => $item->category_id])->value('title');
+                $item->category_name = $name;
+                return $item;
+            });
+                $this->assign (
             [
                 'pid'=>$pid,
                 'List'=>$list,
+                'searchType'=>$searchType,
+                'keyWord'=>$keyWord,
             ]
         );
+//        $this->assign (['memberList'=>$memberList]);
+        return $this->fetch();
         return $this->fetch();
     }
 
