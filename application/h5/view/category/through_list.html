@@ -15,6 +15,8 @@
                 {{volist name='month' id='mo'}}
                 <li><a {{if condition="$i == $thisMonth"}} class="active" {{/if}} href="{{:url('',['cid'=>$cid,'displayType'=>1,'thisMonth'=>$i])}}">{{$mo}}</a></li>
                 {{/volist}}
+                <li><a    href="{{:url('category/duihuan')}}">兑换专区</a></li>
+
 
             </ul>
 
