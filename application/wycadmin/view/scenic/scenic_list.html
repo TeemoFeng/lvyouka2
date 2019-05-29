@@ -89,6 +89,7 @@
                                             <th>星级</th>
                                             <th>预约人数统计</th>
                                             <th>状态</th>
+                                            <th>兑换</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -104,10 +105,16 @@
                                             <td>{{$vo->star}}</td>
                                             <td>{{$vo->appoint_people}}</td>
                                             <td>{{$vo->w_status}}</td>
+                                            <td>{{$vo->is_duihuanx}}</td>
                                             <td>
                                                 <a href="{{:url('scenic/scenicedit',['id'=>$vo->id])}}}}" class="btn btn-sm btn-success">编辑</a>
                                                 <a href="javascript:;" onclick="updateStatus({{$vo->id}},1)" class="btn  btn-primary btn-sm">启用</a>
                                                 <a href="javascript:;" onclick="updateStatus({{$vo->id}},0)" class="btn  btn-info btn-sm">禁用</a>
+                                                {{if condition="$vo->category_id eq 2"}}
+                                                <a href="javascript:;" onclick="updateDuihuan({{$vo->id}},1)" class="btn  btn-primary btn-sm">兑换专区启用</a>
+                                                <a href="javascript:;" onclick="updateDuihuan({{$vo->id}},0)" class="btn  btn-info btn-sm">兑换专区禁用</a>
+                                                {{/if}}
+
                                                 <a href="javascript:;" onclick="updateStatus({{$vo->id}},-1)" class="btn  btn-danger btn-sm">删除</a>
                                                 <a href="{{:url('journey/journeyAdd',['id'=>$vo->id, 'category_id' => $vo.category_id])}}"  class="btn  btn-success btn-sm">添加行程</a>
                                                 <a href="{{:url('journey/journeyList2',['id'=>$vo->id])}}"  class="btn  btn-primary btn-sm">行程管理</a>
@@ -145,6 +152,9 @@
     $('.count').countUp();
     function updateStatus(key = '',status = 1) {
         modifyByKeys("{{:url('scenic/scenicStatusUpdate')}}",key,status)
+    }
+    function updateDuihuan(key = '',status = 1) {
+        modifyByKeys("{{:url('scenic/scenicDuihuanUpdate')}}",key,status)
     }
    highlight_subnav();
     function highlight_subnav() {

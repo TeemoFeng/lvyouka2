@@ -66,6 +66,7 @@ class Scenic extends AdminBase
             ->each (function ($item,$key){
                 $name = \app\wycadmin\model\Category::where(['id' => $item->category_id])->value('title');
                 $item->category_name = $name;
+                $item->is_duihuanx = $item->is_duihuan ? '是' : '否';
                 return $item;
             });
                 $this->assign (
@@ -193,6 +194,27 @@ class Scenic extends AdminBase
         try{
             $model = new ScenicModel();
             $this->adminUpdateStatus ($model,$data['id'],$data['status'],'title');
+            Db::commit ();
+        }catch (Exception $e){
+            Db::rollback ();
+            return $this->error ($e->getMessage ());
+        }
+        return $this->success ('操作成功','',null,2);
+    }
+
+    /**
+     * 修改兑换
+     */
+    public function scenicDuihuanUpdate(){
+        $data = request ()->post ();
+        if (empty($data['id'])){
+            return $this->success ('操作成功','',null,2);
+        }
+        Db::startTrans ();
+        try{
+
+            $model = new ScenicModel();
+            model('Scenic')->where('id',$data['id'][0])->update(['is_duihuan'=>$data['status']]);
             Db::commit ();
         }catch (Exception $e){
             Db::rollback ();

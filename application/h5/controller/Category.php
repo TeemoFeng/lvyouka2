@@ -30,6 +30,7 @@ class Category extends Base
         '10'=>'十月',
         '11'=>'十一月',
         '12'=>'十二月',
+        '13'=>'兑换专区',
     ];
 
     public function categoryTypeController($cid = 0,$displayType = 0,$thisMonth = 0){
