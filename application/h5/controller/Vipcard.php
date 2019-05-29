@@ -209,6 +209,9 @@ class Vipcard extends Base
                 if ($card->card_type == 1){
                     $this->validateCheck ('CardActive1',$data);
                     if ($this->userInfo->parent_id == 0){
+                        if(empty($data['pmobile'])){
+                            $data['pmobile'] = '17700602373'; //暂定默认值
+                        }
                         $this->validateCheck ('CardActive3',$data);
                         $tjInfo =  Member::getInfo ([
                             'mobile'=>$data['pmobile']

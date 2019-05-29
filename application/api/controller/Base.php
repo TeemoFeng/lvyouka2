@@ -22,7 +22,7 @@ class Base extends Controller
         session('user_id',1);
 
         if(!session('user_id')){
-            return json(['code' => 0, 'msg' => '登录过期请重新登录', 'url' => 'login/wxlogin']);
+            return json(['code' => 1001, 'msg' => '登录过期请重新登录', 'url' => 'login/wxlogin']);
         }else{
             $this->userId = session('user_id');
             $this->userInfo = Member::getInfo ([
