@@ -93,9 +93,10 @@ class Base extends Controller
         try{
             $wchat = new \wechat\WechatOauth();
             $code = request()->param('code',"");
-            $user = $wchat->getUserAccessUserInfo($code);
-            if($user){
+            $result = $wchat->getUserAccessUserInfo($code);
+            if($result['code'] == 1){
                 //查看用户是否存在
+                $user = $result['user'];
                 $member = new Member();
                 if(!isset($user['id'])){
                     //添加用户信息
@@ -112,6 +113,9 @@ class Base extends Controller
                     }
                     session('user_id', $res);
                     session('openid', $user['openid']);
+                }else{
+                    session('user_id', $user['id']);
+
                 }
 
             }else{
