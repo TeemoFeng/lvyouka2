@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '114.55.167.187',
+    'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'lv_wyc168_com',
+    'database'        => 'lvyou',
     // 用户名
-    'username'        => 'lv_wyc168_com',
+    'username'        => 'root',
     // 密码
-    'password'        => 'rP3kz4n6kHcZ7Tbi',
+    'password'        => 'root',
     // 端口
     'hostport'        => '',
     // 连接dsn

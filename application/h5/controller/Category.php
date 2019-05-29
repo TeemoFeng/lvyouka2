@@ -111,6 +111,16 @@ class Category extends Base
 
     public function duihuan()
     {
+        $list = model ('Scenic')
+            ->where ('status','neq',0)
+            ->where('is_duihuan',1)
+            ->select ();
+
+        $this->assign (
+            [
+                'journeys'=>$list,
+            ]
+        );
         return $this->fetch ();
     }
 

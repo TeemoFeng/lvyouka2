@@ -10,20 +10,15 @@
     <div class="mui-scroll">
 
         <div id="segmentedControl" class="mui-segmented-control ">
-            {{foreach name="categorys" item="co" key="k" }}
-            	<a class="mui-control-item {{if condition='$cid == $k'}} mui-active {{/if}}" href="{{:url('category/categoryTypeController',['cid'=>$k,'displayType'=>2])}}">
-                  {{$co}}
-          	    </a>
-            {{/foreach}}
         </div>
         <div class="re_list">
             <ul class="mui-list-unstyled mui-clearfix">
                 {{volist name='$journeys' id='jo'}}
                 <li>
                     <a href="{{:url('trip/detail',['jid'=>$jo->id])}}">
-                        <img src="{{$jo->csInfo->w_image_path}}" alt="">
-                        <p class="font15  mui-ellipsis">{{$jo->csInfo->title}}</p>
-                        <p class="mui-ellipsis">{{$jo->csInfo->intro}}</p>
+                        <img src="{{$jo->w_image_path}}" alt="">
+                        <p class="font15  mui-ellipsis">{{$jo->title}}</p>
+                        <p class="mui-ellipsis">{{$jo->intro}}</p>
                     </a>
                 </li>
                 {{/volist}}
