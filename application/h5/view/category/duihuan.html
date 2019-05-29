@@ -15,7 +15,7 @@
             <ul class="mui-list-unstyled mui-clearfix">
                 {{volist name='$journeys' id='jo'}}
                 <li>
-                    <a href="{{:url('trip/detail',['jid'=>$jo->id])}}">
+                    <a href="{{:url('category/detail',['jid'=>$jo->id])}}">
                         <img src="{{$jo->w_image_path}}" alt="">
                         <p class="font15  mui-ellipsis">{{$jo->title}}</p>
                         <p class="mui-ellipsis">{{$jo->intro}}</p>
