@@ -106,30 +106,8 @@ class WechatOauth
             ];
         }
        //查询用户是否已经注册
-        $user_info = Db::name('member')->where(['openid' => $access_token['openid']])->find();
+        $user_info = Db::name('member')->where(['unionid' => $access_token['unionid']])->find();
         if($user_info){
-            if(empty($user_info['unionid'])){
-                //更新用户unionid
-                $userinfo_url = 'https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token['access_token'] . '&openid=' . $access_token['openid'] . '&lang=zh_CN';
-                $userinfo_json = $this->https_request($userinfo_url);
-
-                //获取用户的基本信息，并将用户的唯一标识保存在session中
-                if (!$userinfo_json) {
-                    return [
-                        'code' => 0,
-                        'msg' => '获取用户信息失败！',
-                    ];
-                }
-
-                $res = Db::name('member')->where(['id' => $user_info['id']])->update(['unionid' => $userinfo_json['unionid']]);
-                if($res === false){
-                    return [
-                        'code' => 0,
-                        'msg' => '更新失败！',
-                    ];
-                }
-
-            }
             return ['code' => 1, 'user' => $user_info];
         }
 

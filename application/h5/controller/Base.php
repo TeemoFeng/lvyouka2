@@ -107,6 +107,7 @@ class Base extends Controller
                     $data['openid'] = $user['openid'];
                     $data['create_time'] = time();
                     $data['last_login_time'] = time();
+                    $data['unionid'] = $user['unionid'];
                     $res = $member->add($data);
                     if($res == false){
                         \exception ('授权失败');
