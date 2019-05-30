@@ -29,6 +29,27 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
+                    <form action="" method="get">
+
+                        <div class="row">
+
+                            <div class="col-md-5 col-sm-6 col-xs-12 " >
+                                <select class="input-sm form-control input-s-sm inline" style="height: 34px;" name="searchType">
+                                    <option value="0" {{if condition = "$searchType == 0 " "}} selected {{/if}}>全部</option>
+                                    <option value="1" {{if condition = "$searchType == 1 "}} selected {{/if}}>直通车</option>
+                                    <option value="2" {{if condition = "$searchType == 2 " "}} selected {{/if}}>出境游</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" placeholder="旅游景点名字" value="{{$keyWord}}" class="input-sm form-control" name="keyWord" style="height: 34px;">
+                                    <span class="input-group-btn">
+	                                    		<button type="submit" class="btn btn-sm btn-primary" style="height: 34px;"> 搜索</button>
+	                                    	</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="panel">
                         <div class="panel-body">
                             <a href="{{:url('scenic/scenicadd')}}" class="btn  btn-success">新增</a>
@@ -68,6 +89,7 @@
                                             <th>星级</th>
                                             <th>预约人数统计</th>
                                             <th>状态</th>
+                                            <th>兑换</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -83,10 +105,16 @@
                                             <td>{{$vo->star}}</td>
                                             <td>{{$vo->appoint_people}}</td>
                                             <td>{{$vo->w_status}}</td>
+                                            <td>{{$vo->is_duihuanx}}</td>
                                             <td>
                                                 <a href="{{:url('scenic/scenicedit',['id'=>$vo->id])}}}}" class="btn btn-sm btn-success">编辑</a>
                                                 <a href="javascript:;" onclick="updateStatus({{$vo->id}},1)" class="btn  btn-primary btn-sm">启用</a>
                                                 <a href="javascript:;" onclick="updateStatus({{$vo->id}},0)" class="btn  btn-info btn-sm">禁用</a>
+                                                {{if condition="$vo->category_id eq 2"}}
+                                                <a href="javascript:;" onclick="updateDuihuan({{$vo->id}},1)" class="btn  btn-primary btn-sm">兑换专区启用</a>
+                                                <a href="javascript:;" onclick="updateDuihuan({{$vo->id}},0)" class="btn  btn-info btn-sm">兑换专区禁用</a>
+                                                {{/if}}
+
                                                 <a href="javascript:;" onclick="updateStatus({{$vo->id}},-1)" class="btn  btn-danger btn-sm">删除</a>
                                                 <a href="{{:url('journey/journeyAdd',['id'=>$vo->id, 'category_id' => $vo.category_id])}}"  class="btn  btn-success btn-sm">添加行程</a>
                                                 <a href="{{:url('journey/journeyList2',['id'=>$vo->id])}}"  class="btn  btn-primary btn-sm">行程管理</a>
@@ -124,6 +152,9 @@
     $('.count').countUp();
     function updateStatus(key = '',status = 1) {
         modifyByKeys("{{:url('scenic/scenicStatusUpdate')}}",key,status)
+    }
+    function updateDuihuan(key = '',status = 1) {
+        modifyByKeys("{{:url('scenic/scenicDuihuanUpdate')}}",key,status)
     }
    highlight_subnav();
     function highlight_subnav() {

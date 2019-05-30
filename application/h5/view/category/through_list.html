@@ -13,8 +13,9 @@
 
             <ul class="mui-list-unstyled mui-clearfix yufen">
                 {{volist name='month' id='mo'}}
-                <li><a {{if condition="$i == $thisMonth"}} class="active" {{/if}} href="{{:url('',['cid'=>$cid,'displayType'=>1,'thisMonth'=>$i])}}">{{$mo}}</a></li>
+                <li><a {{if condition="$i == $thisMonth"}}  class="active" {{/if}}  {{if condition="$i == 13"}}style="width:120px" {{/if}} href="{{:url('',['cid'=>$cid,'displayType'=>1,'thisMonth'=>$i])}}">{{$mo}}</a></li>
                 {{/volist}}
+
 
             </ul>
 
@@ -23,6 +24,8 @@
                 <div class="active_title">{{$jo1->title}}</div>
                 <ul class="mui-list-unstyled mui-clearfix">
                     {{volist name='jo1->son' id='jo2'}}
+                    {{if condition='$thisMonth eq 13'}}
+                    {{if condition='$jo2->csInfo->is_duihuan'}}
                     <li>
                         <a href="{{:url('trip/detail',['jid'=>$jo2->id])}}">
                             <img src="{{$jo2->csInfo->w_image_path}}" alt="">
@@ -30,11 +33,33 @@
                             <p class="font12  mui-ellipsis">{{$jo2->csInfo->intro}}</p>
                             <p class="font12 mui-ellipsis">预约开始时间：{{$jo2->s_time}}</p>
                             <p class="font12 mui-ellipsis">预约结束时间：{{$jo2->e_time}}</p>
-                            {{if condition='$jo2->vehicle'}}
+                            {{if condition='$jo2->csInfo->is_duihuan'}}
+                            <span class="mui-bg-blue">兑换</span>
+                            {{elseif condition='$jo2->vehicle'}}
                             <span class="mui-bg-blue">直通车</span>
                             {{/if}}
+
+
                         </a>
                     </li>
+                    {{/if}}
+                    {{else/}}
+                    <li>
+                        <a href="{{:url('trip/detail',['jid'=>$jo2->id])}}">
+                            <img src="{{$jo2->csInfo->w_image_path}}" alt="">
+                            <p class="font15  mui-ellipsis">{{$jo2->csInfo->title}}</p>
+                            <p class="font12  mui-ellipsis">{{$jo2->csInfo->intro}}</p>
+                            <p class="font12 mui-ellipsis">预约开始时间：{{$jo2->s_time}}</p>
+                            <p class="font12 mui-ellipsis">预约结束时间：{{$jo2->e_time}}</p>
+                            {{if condition='$jo2->csInfo->is_duihuan'}}
+                            <span class="mui-bg-blue">兑换</span>
+                            {{elseif condition='$jo2->vehicle'}}
+                            <span class="mui-bg-blue">直通车</span>
+                            {{/if}}
+
+                        </a>
+                    </li>
+                    {{/if}}
                     {{/volist}}
                 </ul>
                 {{/volist}}

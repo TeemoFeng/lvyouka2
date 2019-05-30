@@ -22,20 +22,63 @@ class Scenic extends AdminBase
      * @throws \think\exception\DbException
      */
     public function scenicList($pid = 0){
-        $list = ScenicModel::getInfoPage([
-            'status'=>['neq',$this->delete],
-        ],'status,addr,star,appoint_people,intro,id,title,create_time,update_time,category_id','id DESC',$this->listRows);
-        foreach ($list as &$v){
-            $name = \app\wycadmin\model\Category::where(['id' => $v->category_id])->value('title');
-            $v->category_name = $name;
-        }
+        $searchType = input ('searchType');
+        $keyWord = input ('keyWord');
+//        $list = ScenicModel::getInfoPage([
+//            'status'=>['neq',$this->delete],
+//            ''
+//        ],'status,addr,star,appoint_people,intro,id,title,create_time,update_time,category_id','id DESC',$this->listRows);
+//        foreach ($list as &$v){
+//            $name = \app\wycadmin\model\Category::where(['id' => $v->category_id])->value('title');
+//            $v->category_name = $name;
+//        }
+//
+//        $this->assign (
+//            [
+//                'pid'=>$pid,
+//                'List'=>$list,
+//                'searchType'=>$searchType,
+//            ]
+//        );
 
-        $this->assign (
+//        if ($keyWord != ''){
+//            $pwhere = '';
+//        }
+        $list = model ('Scenic')
+            ->where ('status','neq',$this->delete)
+            ->where(function ($q) use ($searchType,$keyWord){
+                if($searchType)
+                {
+                    if($searchType == 1)
+                    {
+                        $q->where('category_id',2);
+                    }else if($searchType ==2)
+                    {
+                        $q->where('category_id','neq',2);
+                    }
+                }
+                if($keyWord)
+                {
+                    $q->where('title','like','%'.$keyWord.'%');
+                }
+            })
+            ->paginate ($this->listRows,false,$this->page)
+            ->each (function ($item,$key){
+                $name = \app\wycadmin\model\Category::where(['id' => $item->category_id])->value('title');
+                $item->category_name = $name;
+                $item->is_duihuanx = $item->is_duihuan ? '是' : '否';
+                return $item;
+            });
+                $this->assign (
             [
                 'pid'=>$pid,
                 'List'=>$list,
+                'searchType'=>$searchType,
+                'keyWord'=>$keyWord,
             ]
         );
+//        $this->assign (['memberList'=>$memberList]);
+        return $this->fetch();
         return $this->fetch();
     }
 
@@ -151,6 +194,27 @@ class Scenic extends AdminBase
         try{
             $model = new ScenicModel();
             $this->adminUpdateStatus ($model,$data['id'],$data['status'],'title');
+            Db::commit ();
+        }catch (Exception $e){
+            Db::rollback ();
+            return $this->error ($e->getMessage ());
+        }
+        return $this->success ('操作成功','',null,2);
+    }
+
+    /**
+     * 修改兑换
+     */
+    public function scenicDuihuanUpdate(){
+        $data = request ()->post ();
+        if (empty($data['id'])){
+            return $this->success ('操作成功','',null,2);
+        }
+        Db::startTrans ();
+        try{
+
+            $model = new ScenicModel();
+            model('Scenic')->where('id',$data['id'][0])->update(['is_duihuan'=>$data['status']]);
             Db::commit ();
         }catch (Exception $e){
             Db::rollback ();
