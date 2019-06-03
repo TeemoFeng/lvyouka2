@@ -183,7 +183,7 @@ class Trip extends Base
                 $peopleArr = $this->getPeopleInfos ($data);
                 $touristInfo = [];
                 foreach ($peopleArr as $key=>$value){
-                    if (empty($value['name']) || empty($value['name_id'])){
+                    if (empty($value['name']) || empty($value['name_id'])) {
                         \exception('请完善第'.($key+1) .'位出行人的信息');
                     }else{
                         $touristInfo[$key]['name'] = $value['name'];
