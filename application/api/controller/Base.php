@@ -19,9 +19,10 @@ class Base extends Controller
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
-        session('user_id',1);
+        session('user_id',2);
 
         if(!session('user_id')){
+
             return json(['code' => 1001, 'msg' => '登录过期请重新登录', 'url' => 'login/wxlogin']);
         }else{
             $this->userId = session('user_id');

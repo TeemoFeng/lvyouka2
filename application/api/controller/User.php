@@ -422,12 +422,21 @@ class User extends Base
     public function userInvite($backgroundPicture = 'yaoqing')
     {
         $check = CodePath::getInfo ([
-            'id'=>$this->userId
+            'uid'=>$this->userId,
+            'type' => 2,
         ],'*');
         $user_info = Member::getInfo ([
             'id'=>$this->userId
         ]);
-        $qrData = request ()->domain ().'/h5/user/register?usercode='.$user_info->code;
+        if($user_info['valid'] == 0){
+            return json(['code' => 0, 'msg' => '您不是有效会员，请先激活']);
+        }
+        $code  = $user_info->code;
+        if(empty($user_info->code)){
+            $code = $this->createCode(8); //生成邀请码
+            Member::where(['id' => $this->userId])->update(['code' => $code]);
+        }
+        $qrData = 'https://bbs.wyc168.com/api/user/register?usercode='.$code;
         if (!$check || empty($check->code_path)){
             $savePath = ROOT_PATH . 'public/qrcode/';
             $webPath = '/qrcode/';
@@ -439,24 +448,28 @@ class User extends Base
                 $pic = $webPath . $filename;
             }
             $path = $this->image($pic,$backgroundPicture);
-            model ('CodePath')
-                ->allowField (true)
-                ->isUpdate ($check)
-                ->save (
-                    [
-                        'id'=>$this->userId,
-                        'code_path'=>$path
-                    ]
-                );
+
+            if (!$check) {
+                model('CodePath')->allowField (true)->data(['uid' => $this->userId, 'code_path'=>$path, 'type'  => 2])->save();
+            }
+
+            if (empty($check->code_path)) {
+                model ('CodePath')
+                    ->allowField (true)
+                    ->isUpdate (true)
+                    ->save (
+                        [
+                            'id'=> $check->id,
+                            'uid' => $this->userId,
+                            'code_path'=>$path,
+                            'type' => 2,
+                        ]
+                    );
+            }
         }else{
             $path = $check->code_path;
         }
-   
-        $dataR = array();
-        $dataR['code'] = 1;
-        $dataR['code_path'] = request ()->domain ().$path;
-
-        return json($dataR);
+        return json(['code' => 1, 'code_path' => $path]);
     }
 
     //邀请用户注册
@@ -464,13 +477,51 @@ class User extends Base
     {
         //获取用户携带来的邀请码
         $code = request()->param('usercode',"");
-        if(empty($code)){
-            return;
-        }else{
-            //
+        try{
+            if(empty($code)){
+                \exception ('推荐人邀请码不存在');
+            }else{
+                //如果不存在推荐人
+                if ($this->userInfo->parent_id == 0){
+                    //查询邀请用户信息
+                    $tjInfo =  Member::getInfo ([
+                        'code' => $code
+                    ],'*',true);
+                    if (!$tjInfo){
+                        \exception ('推荐人不存在');
+                    }
+                    if($this->userInfo->id == $tjInfo->id){
+                        \exception ('自己不能推荐自己');
+                    }
+                    $memberInfo = Member::getInfo ([
+                        'id'=>$this->userId
+                    ],'*',true);·
 
+                    $idStr = $tjInfo->parent_idstr.$tjInfo->id.',';
+
+                    Db::startTrans();
+                    $res = $memberInfo::infoEdit ($memberInfo,['parent_id','parent_idstr'],[
+                        'parent_id'=>$tjInfo->id,
+                        'parent_idstr'=>$idStr
+                    ]);
+
+                    $res2 = Member::where('id','eq',$tjInfo->id)->setInc ('zt_count',1);
+                    $res3 = Member::where('id','in',$idStr)->setInc ('team_count',1);
+                    if($res === false || $res2 === false || $res3 === false){
+                        Db::rollback();
+                        \exception ('修改失败');
+                    }else{
+                        Db::commit();
+
+                    }
+                }
+
+            }
+        }catch (Exception $e){
+            return json(['code' => 0, 'msg' =>$e->getMessage ()]);
         }
 
+        return json(['code' => 1, 'msg' => '注册成功', 'url' => 'index/index']);
 
     }
 

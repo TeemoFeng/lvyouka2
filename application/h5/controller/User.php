@@ -379,7 +379,8 @@ class User extends Base
     public function userInvite($backgroundPicture = 'yaoqing')
     {
         $check = CodePath::getInfo ([
-            'id'=>$this->userId
+            'uid'=>$this->userId,
+            'type' => 1,
         ],'*');
         $user_info = Member::getInfo ([
             'id'=>$this->userId
@@ -401,15 +402,25 @@ class User extends Base
                 $pic = $webPath . $filename;
             }
             $path = $this->image($pic,$backgroundPicture);
-            model ('CodePath')
-                ->allowField (true)
-                ->isUpdate ($check)
-                ->save (
-                    [
-                        'id'=>$this->userId,
-                        'code_path'=>$path
-                    ]
-                );
+
+            if (!$check) {
+                model('CodePath')->allowField (true)->data(['uid' => $this->userId, 'code_path'=>$path, 'type'  => 1])->save();
+            }
+
+            if (empty($check->code_path)) {
+                model ('CodePath')
+                    ->allowField (true)
+                    ->isUpdate (true)
+                    ->save (
+                        [
+                            'id'=> $check->id,
+                            'uid' => $this->userId,
+                            'code_path'=>$path,
+                            'type' => 1,
+                        ]
+                    );
+            }
+
         }else{
             $path = $check->code_path;
         }

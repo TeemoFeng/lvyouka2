@@ -19,19 +19,18 @@ use app\h5\model\MemberCard;
 class Category extends Base
 {
     private $month = [
-        '1'=>'一月',
-        '2'=>'二月',
-        '3'=>'三月',
-        '4'=>'四月',
-        '5'=>'五月',
-        '6'=>'六月',
-        '7'=>'七月',
-        '8'=>'八月',
-        '9'=>'九月',
-        '10'=>'十月',
-        '11'=>'十一月',
-        '12'=>'十二月',
-        '13'=>'直通车目的地兑换',
+        '1'=>'1',
+        '2'=>'2',
+        '3'=>'3',
+        '4'=>'4',
+        '5'=>'5',
+        '6'=>'6',
+        '7'=>'7',
+        '8'=>'8',
+        '9'=>'9',
+        '10'=>'10',
+        '11'=>'11',
+        '12'=>'12',
     ];
 
     public function categoryTypeController($cid = 0,$displayType = 0,$thisMonth = 0){
@@ -40,6 +39,7 @@ class Category extends Base
                 exception ('参数错误');
             }
             $jGroup = '';
+            $year = date('Y');
             if ($displayType == 1){
                 if ($thisMonth == 0){
                     $thisMonth = date ('m');
@@ -101,9 +101,9 @@ class Category extends Base
             $this->assign ([
                 'journeys'=>$journeys,
                 'thisMonth'=>$thisMonth,
-                'month'=>$this->month,
+                'month' =>$this->month,
+                'year'  => $year,
                 'cid'=>$cid,
-                'thisMonth'=>$thisMonth,
                 //'category'=>$categorys,
             ]);
             return $this->fetch($template);

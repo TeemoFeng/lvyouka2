@@ -1,31 +1,102 @@
 <!DOCTYPE html>
 {{include file='public/header'}}
 <body>
-<header class="mui-bar mui-bar-nav  index-headers">
-    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color" href='{{:url('index/index')}}' ></a>
-    <h1 class="mui-title color">直通车</h1>
+<style type="text/css">
+    .mui-content{background: #fff;}
+    .mui-zhi-header{position: relative;}
+    .mui-zhi-text{position: absolute;bottom: 20px;left: 20px;}
+    .mui-text-bai{color: #fff;font-size: 20px;font-size: 400;}
+    .mui-zhi-text div{color: #79efed;margin: 5px 0 10px;}
+    .mui-zhi-text a{color: #22a498;padding: 8px ;border-radius: 5px;background: #8ee2e3;}
+    select{width: 200px;margin-left: 10px;border: 1px solid #e6e6e6!important;border-radius: 5px;margin-top: 5px; padding: 5px 15px 10px 5px;position: relative;-webkit-appearance: menulist;color: #666;}
+    .active_title span{position: relative;display: inline-block;width: 200px;}
+    .active_title span b{display: inline-block;width: 130px;background: #fff;position: relative;z-index: 11;text-align: left;padding-left: 17px;}
+    .active_title span:after{position: absolute;width: 100%;content: '';height: 1px;background: #000000;left: 50%;margin-left: -100px;top: 10px;}
+    .active_list ul li{padding: 0;border-radius: 5px;overflow: hidden;}
+    .active_list ul li a p{padding:0 10px;}
 
-</header>
-<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
+    .triangle_border_up{
+        width:0;
+        height:0;
+        border-width:0 5px 5px;
+        border-style:solid;
+        border-color:transparent transparent #333;/*透明 透明  灰*/
+        margin:10px 0 10px 5px;
+        position:absolute;
+    }
+    .triangle_border_down{
+        width:0;
+        height:0;
+        border-width:5px 5px 0;
+        border-style:solid;
+        border-color:#333 transparent transparent;/*灰 透明 透明 */
+        margin:10px 0 10px 5px;
+        position:absolute;
+    }
+
+</style>
+<div class="mui-content mui-scroll-wrapper" id="pullrefresh" style="padding-top: 0;">
     <div class="mui-scroll">
+        <header class="mui-bar mui-bar-nav  index-headers"  style="background: transparent;box-shadow:none">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color" href="{{:url('index/index')}}" ></a>
+            <h1 class="mui-title color">直通车</h1>
 
-        <div class="mui-table-view mui-table-view-chevron    " >
-
-            <ul class="mui-list-unstyled mui-clearfix yufen">
+        </header>
+        <div class="mui-table-view mui-table-view-chevron" >
+            <div class="mui-zhi-header">
+                <img src="__STATIC__/h5/images/zhitongche.png" alt="" style="width: 100%;">
+                <div class="mui-zhi-text">
+                    <h3 class="mui-text-bai">开启您的新旅程</h3>
+                    <div> 探寻世界美好</div>
+                    <a href="{{:url('',['cid'=>$cid,'displayType'=>1,'thisMonth'=>13])}}">点击兑换直通车目的地</a>
+                </div>
+            </div>
+            <!-- <ul class="mui-list-unstyled mui-clearfix yufen">
                 {{volist name='month' id='mo'}}
-                <li><a {{if condition="$i == $thisMonth"}}  class="active" {{/if}}  {{if condition="$i == 13"}}style="width:120px" {{/if}} href="{{:url('',['cid'=>$cid,'displayType'=>1,'thisMonth'=>$i])}}">{{$mo}}</a></li>
+                <li><a {{if condition="$i == $thisMonth"}} class="active" {{/if}} href="{{:url('',['cid'=>$cid,'displayType'=>1,'thisMonth'=>$i])}}" {{if condition="$i == 13"}}style="width:120px" {{/if}}>{{$mo}}</a></li>
                 {{/volist}}
 
-
-            </ul>
-
+            </ul> -->
+            <div style="padding-left: 20px;">请选择出行月份</div>
+            <select id="yuefen" data-id="{{$cid}}">
+                {{volist name='month' id='mo'}}
+                <option value ="{{$i}}"  {{if condition="$i == $thisMonth"}} selected {{/if}}>{{$year}}年{{$mo}}月份</option>
+                {{/volist}}
+            </select>
             <div class="active_list">
-                {{volist name='journeys' id='jo1'}}
-                <div class="active_title">{{$jo1->title}}</div>
+
+                {{if condition='$thisMonth eq 13'}}
                 <ul class="mui-list-unstyled mui-clearfix">
+                    {{if condition='$journeys'}}
+                    {{volist name='journeys' id='jo2'}}
+                    <li>
+                        <a href="{{:url('trip/detail',['jid'=>$jo2->id])}}">
+                            <img src="{{$jo2->image_path}}" alt="">
+                            <p class="font15  mui-ellipsis">{{$jo2->title}}</p>
+                            <p class="font12  mui-ellipsis">{{$jo2->intro}}</p>
+                            <p class="font12 mui-ellipsis">预约开始时间：{{$jo2->s_time}}</p>
+                            <p class="font12 mui-ellipsis">预约结束时间：{{$jo2->e_time}}</p>
+                            <span class="mui-bg-blue">兑换</span>
+
+                        </a>
+                    </li>
+                    {{/volist}}
+                    {{/if}}
+                </ul>
+                {{else/}}
+                {{volist name='journeys' id='jo1'}}
+                <div class="active_title mui-text-center">
+					<span class="mui-span-time" iid='false'>
+						<b>
+							<img src="__STATIC__/h5/images/liwu.png" alt="" style="width: 15px;vertical-align: middle;margin-right: 5px;">
+							第{{$jo1->week}}周
+							<i class="triangle_border_down"></i>
+						</b>
+					</span>
+                </div>
+
+                <ul class="mui-list-unstyled mui-clearfix mui-ul-zhitongche">
                     {{volist name='jo1->son' id='jo2'}}
-                    {{if condition='$thisMonth eq 13'}}
-                    {{if condition='$jo2->csInfo->is_duihuan'}}
                     <li>
                         <a href="{{:url('trip/detail',['jid'=>$jo2->id])}}">
                             <img src="{{$jo2->csInfo->w_image_path}}" alt="">
@@ -33,38 +104,16 @@
                             <p class="font12  mui-ellipsis">{{$jo2->csInfo->intro}}</p>
                             <p class="font12 mui-ellipsis">预约开始时间：{{$jo2->s_time}}</p>
                             <p class="font12 mui-ellipsis">预约结束时间：{{$jo2->e_time}}</p>
-                            {{if condition='$jo2->csInfo->is_duihuan'}}
-                            <span class="mui-bg-blue">兑换</span>
-                            {{elseif condition='$jo2->vehicle'}}
+                            {{if condition='$jo2->vehicle'}}
                             <span class="mui-bg-blue">直通车</span>
                             {{/if}}
-
-
                         </a>
                     </li>
-                    {{/if}}
-                    {{else/}}
-                    <li>
-                        <a href="{{:url('trip/detail',['jid'=>$jo2->id])}}">
-                            <img src="{{$jo2->csInfo->w_image_path}}" alt="">
-                            <p class="font15  mui-ellipsis">{{$jo2->csInfo->title}}</p>
-                            <p class="font12  mui-ellipsis">{{$jo2->csInfo->intro}}</p>
-                            <p class="font12 mui-ellipsis">预约开始时间：{{$jo2->s_time}}</p>
-                            <p class="font12 mui-ellipsis">预约结束时间：{{$jo2->e_time}}</p>
-                            {{if condition='$jo2->csInfo->is_duihuan'}}
-                            <span class="mui-bg-blue">兑换</span>
-                            {{elseif condition='$jo2->vehicle'}}
-                            <span class="mui-bg-blue">直通车</span>
-                            {{/if}}
-
-                        </a>
-                    </li>
-                    {{/if}}
                     {{/volist}}
                 </ul>
                 {{/volist}}
             </div>
-
+            {{/if}}
         </div>
 
     </div>
@@ -87,23 +136,46 @@
             mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
         }, 1500);
     }
-    function enterSearch(event){
-        if(event.keyCode == 13) {//用户点击回车的事件号为13
-            var keyword = document.getElementById('searchInput').value;
-            alert(keyword);
+    (function(){
+        var muiul=$('ul.mui-ul-zhitongche')
+        console.log(muiul)
+        for (var i =0 ;i<muiul.length;i++){
+            var lists=$(muiul[i]).children('li')
+            for(var a = 0 ; a < lists.length ; a++){
+                $(lists[a+2]).attr('style','display:none')
+            }
         }
+    })()
+    var btns=$('.mui-span-time')
+    for (var i =0 ;i<btns.length;i++){
+        btns[i].addEventListener('tap',function(){
+            var lists=$(this).parent().next().children('li')
+            var iid = $(this).attr('iid')
+            if(iid=='false'){
+                iid = $(this).attr('iid','true')
+                $(this).children().children('i').addClass('triangle_border_up').removeClass('triangle_border_down')
+                for(var a = 0 ; a < lists.length ; a++){
+                    $(lists[a+2]).attr('style','display:block')
+                }
+            }else{
+                iid = $(this).attr('iid','false')
+                $(this).children().children('i').addClass('triangle_border_down').removeClass('triangle_border_up')
+                for(var a = 0 ; a < lists.length ; a++){
+                    $(lists[a+2]).attr('style','display:none')
+                }
+            }
+
+        })
     }
 
+
+    $('#yuefen').change(function(){
+
+        var id = $(this).val();
+        var cid = $(this).attr('data-id');
+        location.href = "{{:url('category/categoryTypeController')}}?cid="+cid+"&displayType=1&thisMonth="+id;
+    })
 </script>
-<script>
 
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        autoplay:5000,
-        paginationClickable: true,
-
-    });
-
-</script>
 </body>
 </html>
